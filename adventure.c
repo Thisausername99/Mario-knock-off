@@ -1,9 +1,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include "items.h"
-#include "room.h"
+#include "rooms.h"
 #include <string.h>
 
+
+//#define 
 
 struct avatar{
  char*name;
@@ -26,12 +28,13 @@ void add_item(struct Item*bag, struct Item*new){ //pass a pointer to add the ite
 	if(bag->next==NULL){
 		bag->next=new;
 	}
+
+	//Item*slot=bag->next;	
 	while(bag->next!=NULL){
-		if(bag->next==NULL){
-			bag->next=new;
-		}
 		bag=bag->next;
 	}
+	bag->next=new;
+	
 }
 
 
@@ -56,7 +59,7 @@ void room_exit(struct avatar*ptr , char* direction){
  	else if(strcmp("down",direction)==0){
   	ptr->stage=temp->down;
   	}
-  	
+
   	free(temp);
 }
 
@@ -75,12 +78,21 @@ typedef struct avatar user;
 
 int main(void){
 char*name;
-struct Item *bag=item("","",item("ID","To get into club",NULL));
+struct Item *bag=item("","",item("ID","To enter club",NULL));
 chamber*first_stage=initiate_room();
-printf("Welcome to Text Adventure\n Please choose a name for you avatar:");
+printf("Welcome to Text Adventure\nPlease choose a name for you avatar:");
 scanf("%s",name);
 struct avatar*user=initialize(name,bag,first_stage);
 printf("%s\n",user->name);
 room_item(first_stage);
+print_list(bag);
+printf("TEST PLAYER ADDING\n");
+add_item(bag,item_take("key",first_stage->item));
+//printf("%s",(item_take("key",first_stage->item))->description);
+print_list(bag);
+
+printf("first stage after remove\n");
+
+print_list(first_stage->item);
 return 0;
 }

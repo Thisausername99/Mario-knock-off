@@ -37,9 +37,9 @@ struct Item*item(char* name1, char* description1, struct Item* input){
 struct Item* item_take(char*name,struct Item *head){
 	  struct Item* result=NULL;
     struct Item* previous=NULL;
-    struct Item* current=head->next;
+  
     if(head->next==NULL){  // nothing in the list
-      return head->next;
+      return NULL;
     }
 
     else if(head->next->next==NULL && strcmp(head->next->name,name)==0){
@@ -48,38 +48,40 @@ struct Item* item_take(char*name,struct Item *head){
       return result;
     }
 
-    while(current!=NULL){ 
-      if(strcmp(name,current->name)==0){
+    head=head->next;
+    while(head!=NULL){ 
+      if(strcmp(name,head->name)==0){
         if(previous==NULL){ //remove first
-            result=current->next;
-            char*temp_name=current->name;
-            char*temp_desc=current->description;
+            result=head->next;
+            char*temp_name=head->name;
+            char*temp_desc=head->description;
             
-            current->name=current->next->name;
-            current->description=current->next->description;
-            current->next=current->next->next;
+            //*current=*current->next;
+            head->name=head->next->name;
+            head->description=head->next->description;
+            head->next=head->next->next;
             
             result->name=temp_name;
             result->description=temp_desc;
           break;
         }
-        else if(previous->next==current){
-          if(current->next==NULL){ //at the end
-            result=current;
-            previous->next=NULL;
+        else if(previous->next==head){
+          if(head->next==NULL){ //at the end
+            result=head;
+            head->next=NULL;
             break;
             }
           else // in the middle
-            result=current;
+            result=head;
             previous->next=previous->next->next;
-            current=previous->next;
+            head=previous->next;
             break;
       }
     }
-    previous=current;
-    current=current->next;
+    previous=head;
+    head=head->next;
   }
   	free(previous);
-  	free(current);
+  	//free(current);
     return result;
 }

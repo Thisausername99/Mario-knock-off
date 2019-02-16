@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "items.h"
-#include "room.h"
+#include "rooms.h"
 
 
 chamber * new_room(char* description, Item* item_list,struct Room *north, struct Room *south,
@@ -61,8 +61,8 @@ bool state_conquered(chamber* current){
 
 
 chamber* initiate_room(){
-	Item* room_one=item("","",item("sword of ALL Sword","to slay a beast",item("fire","to melt the ice",NULL)));
-	Item* room_two=item("","",item("key","to unlock a chest",item("banana","to feed the beast",NULL)));
+	Item* room_one=item(" "," ",item("sword of ALL Sword","to slay a beast",item("fire","to melt the ice",NULL)));
+	Item* room_two=item(" "," ",item("key","to unlock a chest",NULL));
 	chamber * level_one=new_room("A room that hibernate by a giant serpent that can only be killed with the sword of ALL Sword",
 	room_two,NULL,NULL,NULL,NULL,NULL,NULL);
 	return level_one;
