@@ -86,7 +86,7 @@ struct avatar*user=initialize(name,bag,first_stage);
 printf("%s\n",user->name);
 room_item(first_stage);
 print_list(bag);
-printf("TEST PLAYER ADDING\n");
+printf("*PLAYER INVENTORY*\n");
 add_item(bag,item_take("key",first_stage->item));
 //printf("%s",(item_take("key",first_stage->item))->description);
 print_list(bag);

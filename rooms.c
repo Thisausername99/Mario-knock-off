@@ -24,14 +24,38 @@ chamber * new_room(char* desc, Item* item_list,struct Room *north, struct Room *
 	return new_room;
 }
 
+void set_north(chamber*current,chamber*other){
+	current->north=other;
+}
+
+void set_south(chamber*current,chamber*other){
+	current->south=other;
+}
+
+void set_east(chamber*current,chamber*other){
+	current->east=other;
+}
+
+void set_west(chamber*current,chamber*other){
+	current->west=other;
+}
+
+void set_up(chamber*current,chamber*other){
+	current->up=other;
+}
+
+void set_down(chamber*current,chamber*other){
+	current->down=other;
+}
+
 
 void display_room(chamber*ptr){
-	printf("The south is:%s\n",(ptr->south!=NULL? ptr->south->desc:"EMPTY"));
-	printf("The north is:%s\n",(ptr->north!=NULL? ptr->north->desc:"EMPTY"));
-	printf("The east is:%s\n",(ptr->east!=NULL? ptr->east->desc:"EMPTY"));
-	printf("The west is:%s\n",(ptr->west!=NULL? ptr->west->desc:"EMPTY"));
-	printf("The up is:%s\n",(ptr->up!=NULL? ptr->up->desc:"EMPTY"));
-	printf("The down is:%s\n",(ptr->down!=NULL? ptr->down->desc:"EMPTY")); 
+	printf("The south is:%s\n",(ptr->south!=NULL? ptr->south->desc:"DEAD END"));
+	printf("The north is:%s\n",(ptr->north!=NULL? ptr->north->desc:"DEAD END"));
+	printf("The east is:%s\n",(ptr->east!=NULL? ptr->east->desc:"DEAD END"));
+	printf("The west is:%s\n",(ptr->west!=NULL? ptr->west->desc:"DEAD END"));
+	printf("The up is:%s\n",(ptr->up!=NULL? ptr->up->desc:"DEAD END"));
+	printf("The down is:%s\n",(ptr->down!=NULL? ptr->down->desc:"DEAD END")); 
 }
 
 void room_item(chamber*room){

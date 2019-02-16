@@ -29,4 +29,16 @@ void room_item(chamber*room);
 void display_room(chamber*room);
 
 chamber*initiate_room();
+
+void set_north(chamber*current,chamber*other);
+
+void set_south(chamber*current,chamber*other);
+
+void set_east(chamber*current,chamber*other);
+
+void set_west(chamber*current,chamber*other);
+
+void set_up(chamber*current,chamber*other);
+
+void set_down(chamber*current,chamber*other);
 	
