@@ -93,6 +93,6 @@ print_list(bag);
 
 printf("first stage after remove\n");
 
-print_list(first_stage->item);
+display_room(first_stage);
 return 0;
 }
