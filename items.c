@@ -48,7 +48,7 @@ struct Item* item_take(char*name,struct Item *head){
       return result;
     }
 
-    head=head->next;
+    head=head->next; // skip the dummy node
     while(head!=NULL){ 
       if(strcmp(name,head->name)==0){
         if(previous==NULL){ //remove first
