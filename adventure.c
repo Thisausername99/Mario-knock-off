@@ -10,6 +10,7 @@
 
 struct avatar{
  char*name;
+ char*status;
  struct Item*bag;
  int score;
  chamber*stage;
@@ -19,20 +20,32 @@ typedef struct avatar user;
 struct avatar* initialize(char*name,struct Item*bag, chamber* begin){
 	struct avatar*user=(struct avatar*)malloc(sizeof(struct avatar));
 	user->name=name;
+	user->status="NO POWER UP";
 	user->bag=bag;
 	user->stage=begin;
 	user->score=0;
 	return user;
 }
 
-void add_item(struct Item*bag, struct Item*new){ //pass a pointer to add the item
-	if(bag->next==NULL){
+bool add_item(user*ptr, Item*new){ //pass a pointer to add the item
+	if(ptr->bag->next==NULL){
 		bag->next=new;
+	if(strcmp(new->name,"fireball")==0){ptr->status="YOU ARE FIRE UP";}
+	else if(strcmp(new->name,"mushroom")==0){ptr->status="YOU HUGE";}
+	else if(strcmp(new->name,"hammer")==0){ptr->status="HAM THE SPAM";}
+	return true;
 	}	
-	while(bag->next!=NULL){
+	
+	else{
+		printf("YOU CAN ONLY HAVE ONE ITEM");
+		return false;
+	}
+
+
+	/*while(bag->next!=NULL){
 		bag=bag->next;
 	}
-	bag->next=new;
+	bag->next=new;*/
 	
 }
 
@@ -89,17 +102,17 @@ void play_game(user*ptr){ //USER API
 	char direction;
 	bool stop=false;
 	while(!stop){
-		printf("CHOOSE AN ACTION: L For LOOK  T to TAKE , G to go or Q to quit or I for INVENTORY:");
+		printf("CHOOSE AN ACTION:\n 1.L to LOOK  \n2.T to TAKE \n3.G to GO \n4.Q to QUIT\n 5.I for INVENTORY:");
 		scanf(" %c",&decision);
-		if(decision=='L'){
+		if(decision =='L'){
 			LOOK_cmd(ptr->stage);
 			continue;
 		}
-		else if(decision='I'){
+		else if(decision =='I'){
 			print_list(ptr->bag);
 			continue;
 		}
-		else if(decision=='Q'){
+		else if(decision =='Q'){
 			break;
 	}
 
