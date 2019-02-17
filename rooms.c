@@ -6,7 +6,7 @@
 
 
 
-chamber * new_room(char* desc, char*tool, Item* item_list, chamber *north, chamber *south,
+chamber * new_room(char* desc, char*tool, Item *item_list, chamber *north, chamber *south,
 	chamber *east, chamber *west, chamber *up, chamber *down){
 
 	chamber*new_room=(chamber*)malloc(sizeof(chamber));
@@ -82,13 +82,13 @@ chamber* initiate_room(){
 	Item* room_one=item(" "," ",item("sword of ALL Sword","to slay a beast",item("fire","to melt the ice",NULL)));
 	Item* room_two=item(" "," ",item("key","to unlock a chest",NULL));
 	
-	chamber * level_two=new_room("Then exit is blocked by a boulder, need shroom to break","Shroom";
+	chamber * level_two=new_room("Then exit is blocked by a boulder, need shroom to break","Shroom",
 	room_one,NULL,NULL,NULL,NULL,NULL,NULL);
 
 	chamber * level_one=new_room("A room that hibernate by a giant serpent","sword",
 	room_two,level_two,NULL,NULL,NULL,NULL,NULL);
 
-	chamber * level_three=new_room("This room guarded by army of Koopa","fire ball",
+	/*chamber * level_three=new_room("This room guarded by army of Koopa","fire ball",
 	room_two,level_two,NULL,NULL,NULL,NULL,NULL);
 
 	chamber * level_four=new_room("This room has a piranhaplant guarding","fire ball",
@@ -106,7 +106,7 @@ chamber* initiate_room(){
 
 
 	chamber * level_eight=new_room("A room that hibernate by a giant serpent that can only be killed with the sword of ALL Sword",
-	room_two,level_two,NULL,NULL,NULL,NULL,NULL);
+	room_two,level_two,NULL,NULL,NULL,NULL,NULL);*/
 
 
 
