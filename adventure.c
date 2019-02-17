@@ -101,35 +101,33 @@ void play_game(user*ptr){ //USER API
 		}
 		else if(decision=='Q'){
 			break;
-		}
 	}
 
 printf("Thank for playing");
+	}
 }
-
 
 typedef struct avatar user;
 
 int main(void){
-	char*name;
-	struct Item *bag=item("","",item("ID","To enter club",NULL));
-	chamber*first_stage=initiate_room();
-	printf("Welcome to Text Adventure\nPlease choose a name for you avatar:");
-	scanf("%s",name);
-	struct avatar*user=initialize(name,bag,first_stage);
-	printf("%s\n",user->name);
-	play_game(user);
+char*name;
+struct Item *bag=item("","",item("ID","To enter club",NULL));
+chamber*first_stage=initiate_room();
+printf("Welcome to Text Adventure\nPlease choose a name for you avatar:");
+scanf("%s",name);
+struct avatar*user=initialize(name,bag,first_stage);
+printf("%s\n",user->name);
+play_game(user);
 
+/*room_item(first_stage);
+print_list(bag);
+printf("*PLAYER INVENTORY*\n");
+add_item(bag,item_take("key",first_stage->item));
+//printf("%s",(item_take("key",first_stage->item))->description);
+print_list(bag);
 
-	/*room_item(first_stage);
-	print_list(bag);
-	printf("*PLAYER INVENTORY*\n");
-	add_item(bag,item_take("key",first_stage->item));
-	//printf("%s",(item_take("key",first_stage->item))->description);
-	print_list(bag);
+printf("first stage after remove\n");
 
-	printf("first stage after remove\n");
-
-	display_room(first_stage);*/
+display_room(first_stage);*/
 return 0;
 }

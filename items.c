@@ -3,16 +3,16 @@
 #include <string.h>
 
 
-char* item_name(struct Item* input){
+char* item_name(Item* input){
 	return input->name;
 }
 
-char* item_description(struct Item* input){
+char* item_description(Item* input){
 	return input->description;
 }
 
 
-void print_list(struct Item*head){
+void print_list(Item*head){
 	struct Item*current=head->next;
   int i=1;
   while(current!=NULL){
@@ -24,7 +24,7 @@ void print_list(struct Item*head){
 }
 
 
-struct Item*item(char* name1, char* description1, struct Item* input){
+Item*item(char* name1, char* description1, struct Item* input){
     struct Item*temp=(struct Item*)malloc(sizeof(struct Item));
     temp->name=name1;
     temp->description=description1;
@@ -34,9 +34,9 @@ struct Item*item(char* name1, char* description1, struct Item* input){
 
 
 
-struct Item* item_take(char*name,struct Item *head){
-	  struct Item* result=NULL;
-    struct Item* previous=NULL;
+Item* item_take(char*name,Item *head){
+	  Item* result=NULL;
+    Item* previous=NULL;
   
     if(head->next==NULL){  // nothing in the list
       return NULL;

@@ -17,12 +17,12 @@ struct Room{
 
 typedef struct Room chamber;
 
-struct Room * room(char* desc, char*tool,struct Item* items,struct Room *north, struct Room *south,
-	struct Room *east, struct Room *west,struct Room *up, struct Room *down);
+chamber * room(char* desc, char*tool, Item* items, chamber *north, chamber *south,
+	chamber *east, chamber *west, chamber *up, chamber *down);
 
 //void room_exit(struct Room* current, struct Room* other,char* direction);
   
-bool state_conquered(struct Room* current);
+bool state_conquered(char*item,chamber* current);
 
 void room_item(chamber*room);
 

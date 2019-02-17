@@ -6,15 +6,16 @@
 
 
 
-chamber * new_room(char* desc,char*tool, Item* item_list,chamber *north, chamber *south,
-	chamber *east, chamber *west,chamber *up, chamber *down){
+chamber * new_room(char* desc, char*tool, Item* item_list, chamber *north, chamber *south,
+	chamber *east, chamber *west, chamber *up, chamber *down){
+
 	chamber*new_room=(chamber*)malloc(sizeof(chamber));
 	
 	new_room->challenge=false;
 	
 	new_room->desc=desc;
 	new_room->item=item_list;
-	new_room->tool=tool;
+	new_room->item_req=tool;
 
 	new_room->south=south;
 	new_room->north=north;
@@ -52,7 +53,13 @@ void set_down(chamber*current,chamber*other){
 
 
 void display_room(chamber*ptr){
-	printf("%s",ptr->desc);
+	printf("YOUR SURROUNDING IS\n");
+	printf("The south is:%s\n",(ptr->south!=NULL? ptr->south->desc:"DEAD END"));
+	printf("The north is:%s\n",(ptr->north!=NULL? ptr->north->desc:"DEAD END"));
+	printf("The east is:%s\n",(ptr->east!=NULL? ptr->east->desc:"DEAD END"));
+	printf("The west is:%s\n",(ptr->west!=NULL? ptr->west->desc:"DEAD END"));
+	printf("Upper chamber is:%s\n",(ptr->up!=NULL? ptr->up->desc:"DEAD END"));
+	printf("Below is:%s\n",(ptr->down!=NULL? ptr->down->desc:"DEAD END")); 
 }
 
 void room_item(chamber*room){
