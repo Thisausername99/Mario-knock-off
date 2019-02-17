@@ -53,27 +53,27 @@ void interact_room(){
 bool room_exit(user*ptr , char* direction){ 
 	chamber*temp=ptr->stage;
 
-	if(strcmp("north",direction)==0 && (ptr->north->challenge)){
+	if(strcmp("north",direction)==0 && (temp->north->challenge)){
   	ptr->stage=temp->north;
   	return true;
    	}
-  	if(strcmp("south",direction)==0 && (ptr->south->challenge)){
+  	if(strcmp("south",direction)==0 && (temp->south->challenge)){
   	ptr->stage=temp->south;
   	return true;
   	}
-  	else if(strcmp("east",direction)==0 && (ptr->east->challenge)){
+  	else if(strcmp("east",direction)==0 && (temp->east->challenge)){
   	ptr->stage=temp->east;
   	return true;
   	}
-  	else if(strcmp("west",direction)==0 && (ptr->west->challenge)){
+  	else if(strcmp("west",direction)==0 && (temp->west->challenge)){
   	ptr->stage=temp->west;
   	return true;
   	}
-  	else if(strcmp("up",direction)==0 && (ptr->up->challenge)){
+  	else if(strcmp("up",direction)==0 && (temp->up->challenge)){
   	ptr->stage=temp->up;
   	return true;
   	}
- 	else if(strcmp("down",direction)==0 && (ptr->down->challenge)){
+ 	else if(strcmp("down",direction)==0 && (temp->down->challenge)){
   	ptr->stage=temp->down;
   	return true;
   	}
@@ -101,6 +101,7 @@ void play_game(user*ptr){ //USER API
 		}
 		else if(decision=='Q'){
 			break;
+		}
 	}
 
 printf("Thank for playing");
@@ -110,24 +111,25 @@ printf("Thank for playing");
 typedef struct avatar user;
 
 int main(void){
-char*name;
-struct Item *bag=item("","",item("ID","To enter club",NULL));
-chamber*first_stage=initiate_room();
-printf("Welcome to Text Adventure\nPlease choose a name for you avatar:");
-scanf("%s",name);
-struct avatar*user=initialize(name,bag,first_stage);
-printf("%s\n",user->name);
-play_game(user);
+	char*name;
+	struct Item *bag=item("","",item("ID","To enter club",NULL));
+	chamber*first_stage=initiate_room();
+	printf("Welcome to Text Adventure\nPlease choose a name for you avatar:");
+	scanf("%s",name);
+	struct avatar*user=initialize(name,bag,first_stage);
+	printf("%s\n",user->name);
+	play_game(user);
 
-/*room_item(first_stage);
-print_list(bag);
-printf("*PLAYER INVENTORY*\n");
-add_item(bag,item_take("key",first_stage->item));
-//printf("%s",(item_take("key",first_stage->item))->description);
-print_list(bag);
 
-printf("first stage after remove\n");
+	/*room_item(first_stage);
+	print_list(bag);
+	printf("*PLAYER INVENTORY*\n");
+	add_item(bag,item_take("key",first_stage->item));
+	//printf("%s",(item_take("key",first_stage->item))->description);
+	print_list(bag);
 
-display_room(first_stage);*/
+	printf("first stage after remove\n");
+
+	display_room(first_stage);*/
 return 0;
 }
