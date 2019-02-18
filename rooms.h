@@ -4,8 +4,9 @@
 
 struct Room{
   char*desc;
-  char*item_req;
-  bool challenge;
+  char* reqItem;
+  char*item_list;
+  bool isBlocked;
   struct Item* item;
   struct Room* south;
   struct Room* north;
@@ -41,6 +42,8 @@ void set_west(chamber*current,chamber*other);
 void set_up(chamber*current,chamber*other);
 
 void set_down(chamber*current,chamber*other);
+
+void toggleBlocked(chamber* current);
 
 void room_desc(chamber*current);
 	

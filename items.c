@@ -4,22 +4,22 @@
 
 
 char* item_name(Item* input){
-	return input->name;
+  return input->name;
 }
 
 char* item_description(Item* input){
-	return input->description;
+  return input->description;
 }
 
 
 void print_list(Item*head){
-	struct Item*current=head->next;
+  struct Item*current=head->next;
   int i=1;
   while(current!=NULL){
-		printf("*Item %i is: %s \n*Description: %s \n",i,current->name,current->description);
-		++i;
-		current=current->next;
-	}
+    printf("*Item %i is: %s \n*Description: %s \n",i,current->name,current->description);
+    ++i;
+    current=current->next;
+  }
   free(current);
 }
 
@@ -35,7 +35,7 @@ Item*item(char* name1, char* description1, struct Item* input){
 
 
 Item* item_take(char*name,Item *head){
-	  Item* result=NULL;
+    Item* result=NULL;
     Item* previous=NULL;
   
     if(head->next==NULL){  // nothing in the list
@@ -81,7 +81,7 @@ Item* item_take(char*name,Item *head){
     previous=head;
     head=head->next;
   }
-  	free(previous);
-  	//free(current);
+    free(previous);
+    //free(current);
     return result;
 }
