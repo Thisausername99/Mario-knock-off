@@ -9,18 +9,18 @@
 struct user{
  struct Item* bag;
  chamber* stage;
- char*current_stage;
+ //char*current_stage;
 };
 
 typedef struct user user;
 
 
 
- user* initialize(struct Item*bag, chamber* begin,char*current_stage){
+ user* initialize(struct Item*bag, chamber* begin){
 	struct user* mario=(struct user*)malloc(sizeof(struct user));
 	mario->bag=bag;
 	mario->stage=begin;
-	mario->current_stage=current_stage;
+	//mario->current_stage=current_stage;
 	return mario;
 }
 
@@ -104,21 +104,23 @@ void play_game(user* ptr){ //USER API
 			continue;
 		}
 		else if(strcmp("go", input1) == 0){
+			printf("CHOOSE A DIRECTION:");
 			scanf("%s",input2);
 			go(ptr,input2);
+			printf("YOU ARE CURRENTLY IN %s:",ptr->stage->desc);
 			continue;
 		}
 		else if(strcmp("take", input1) == 0){
 			scanf("%s",input2);
-			add_item(ptr->bag,item_take(ptr->stage->item));
-			printf("You just add %s to your bag, your Inventory is now:",stage->item->name);
-			print_list(bag);
+			add_item(ptr->bag,item_take(input2,ptr->stage->item));
+			printf("You just add %s to your bag, your Inventory is now:",ptr->stage->item->name);
+			print_list(ptr->bag);
 			continue;
 		}
 
 		else if(strcmp("use", input1) == 0){
 			scanf("%s",input2);
-			if(strcmp(take_item(input,bag)->name,stage->item_req)==0){
+			if(strcmp(item_take(input2,ptr->bag)->name,ptr->stage->reqItem)==0){
 			toggleBlocked(ptr->stage);
 			continue;
 			}
@@ -131,9 +133,10 @@ void play_game(user* ptr){ //USER API
 
 		else if(strcmp("drop", input1) == 0){
 			scanf("%s",input2);
-			Item*drop_ptr=item_take(input2,bag);
+			Item*drop_ptr=item_take(input2,ptr->bag);
 			printf("YOU DROP:%s",drop_ptr->name);
-			print_list(bag);
+			print_list(ptr->bag);
+			free(drop_ptr);
 			continue;
 		}
 
