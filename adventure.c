@@ -77,9 +77,8 @@ bool go(user* ptr, char* direction){
   		printf("You moved DOWN\n\n");
   		return true;
   	}
-  	else{
-  		printf("You can't go that way.\n\n");
-  	}
+  	
+  	
 	free(temp);
 	return false;
 }
@@ -106,8 +105,12 @@ void play_game(user* ptr){ //USER API
 		else if(strcmp("go", input1) == 0){
 			printf("CHOOSE A DIRECTION:");
 			scanf("%s",input2);
-			go(ptr,input2);
+			if(go(ptr,input2)){
 			printf("YOU ARE CURRENTLY IN %s:",ptr->stage->desc);
+			continue;
+			}
+			else
+			printf("ROOM UNACCESSABLE");
 			continue;
 		}
 		else if(strcmp("take", input1) == 0){
