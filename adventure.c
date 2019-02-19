@@ -43,44 +43,66 @@ void look(chamber*ptr){
 
 
 
+bool can_access(char*direction, user*ptr){
+	
 
-bool go(user* ptr, char* direction){ 
-	chamber*temp=ptr->stage;
-
-	if(strcmp("NORTH",direction)==0 && temp->north !=NULL && temp->north->isBlocked == false){
-  		ptr->stage=temp->north;
-  		printf("You moved NORTH\n\n");
+	if(strcmp("NORTH",direction)==0 && ptr->stage->north !=NULL && ptr->stage->isBlocked == false){
   		return true;
    	}
-  	if(strcmp("SOUTH",direction)==0 && temp->south !=NULL && temp->south->isBlocked == false){
+  	else if(strcmp("SOUTH",direction)==0 && ptr->stage->south !=NULL && ptr->stage->isBlocked == false){
+  		return true;
+  	}
+  	else if(strcmp("EAST",direction)==0 && ptr->stage->east !=NULL && ptr->stage->isBlocked == false){
+  		return true;
+  	}
+  	else if(strcmp("WEST",direction)==0 && ptr->stage->west !=NULL && ptr->stage->isBlocked == false){
+  		return true;
+  	}
+  	else if(strcmp("UP",direction)==0 && ptr->stage->up !=NULL && ptr->stage->isBlocked == false){
+  		return true;
+  	}
+ 	else if(strcmp("DOWN",direction)==0 && ptr->stage->down !=NULL && ptr->stage->isBlocked == false){
+  		return true;
+  	}
+  	return false;
+}
+
+
+
+void go(user* ptr, char* direction){ 
+	chamber*temp=ptr->stage;
+	if(strcmp("NORTH",direction)==0){
+  		ptr->stage=temp->north;
+  		printf("You moved NORTH\n\n");
+  		
+   	}
+  	else if(strcmp("SOUTH",direction)==0){
   		ptr->stage=temp->south;
   		printf("You moved SOUTH\n\n");
-  		return true;
+  		
   	}
-  	else if(strcmp("EAST",direction)==0 && temp->east !=NULL && temp->east->isBlocked == false){
+  	else if(strcmp("EAST",direction)==0){
   		ptr->stage=temp->east;
   		printf("You moved EAST\n\n");
-  		return true;
+  		
   	}
-  	else if(strcmp("WEST",direction)==0 && temp->west !=NULL && temp->west->isBlocked == false){
+  	else if(strcmp("WEST",direction)==0){
   		ptr->stage=temp->west;
   		printf("You moved WEST\n\n");
-  		return true;
+  		
   	}
-  	else if(strcmp("UP",direction)==0 && temp->up !=NULL && temp->up->isBlocked == false){
+  	else if(strcmp("UP",direction)==0){
   		ptr->stage=temp->up;
   		printf("You moved UP\n\n");
-  		return true;
+  		
   	}
- 	else if(strcmp("DOWN",direction)==0 && temp->down !=NULL && temp->down->isBlocked == false){
+ 	else if(strcmp("DOWN",direction)==0){
   		ptr->stage=temp->down;
   		printf("You moved DOWN\n\n");
-  		return true;
+  		
   	}
-  	
-  	
-	free(temp);
-	return false;
+  	free(temp);
+	
 }
 
 
@@ -94,10 +116,8 @@ void play_game(user* ptr){ //USER API
 	while(!end){
 
 		printf("\nWhat do you do? Type \"help\" for a list of commands\n\n");
-
 		scanf("%s",input1);
-
-
+		
 		if(strcmp("look", input1) == 0){
 			look(ptr->stage);
 			continue;
@@ -105,7 +125,8 @@ void play_game(user* ptr){ //USER API
 		else if(strcmp("go", input1) == 0){
 			printf("CHOOSE A DIRECTION:");
 			scanf("%s",input2);
-			if(go(ptr,input2)){
+			if(can_access(input2,ptr)){
+			go(ptr,input2);
 			printf("YOU ARE CURRENTLY IN %s:",ptr->stage->desc);
 			continue;
 			}
@@ -114,6 +135,9 @@ void play_game(user* ptr){ //USER API
 			continue;
 		}
 		else if(strcmp("take", input1) == 0){
+			printf("THE ITEMS AVAILABLE IN THE ROOM IS:\n");
+			print_list(ptr->stage->item);
+			printf("CHOOSE ITEM YOU WANT TO TAKE");
 			scanf("%s",input2);
 			add_item(ptr->bag,item_take(input2,ptr->stage->item));
 			printf("You just add %s to your bag, your Inventory is now:",ptr->stage->item->name);
@@ -122,6 +146,8 @@ void play_game(user* ptr){ //USER API
 		}
 
 		else if(strcmp("use", input1) == 0){
+			print_list(ptr->bag);
+			printf("CHOOSE ITEMS YOU WANT TO USE:");
 			scanf("%s",input2);
 			if(strcmp(item_take(input2,ptr->bag)->name,ptr->stage->reqItem)==0){
 			toggleBlocked(ptr->stage);
@@ -132,7 +158,6 @@ void play_game(user* ptr){ //USER API
 			continue;
 
 		}
-
 
 		else if(strcmp("drop", input1) == 0){
 			scanf("%s",input2);
