@@ -115,7 +115,7 @@ void play_game(user* ptr){ //USER API
 
 	while(!end){
 
-		printf("\nWhat do you do? Type \"help\" for a list of commands\n\n");
+		printf("\nWhat do you do? Type \"help\" for a list of commands\n");
 		scanf("%s",input1);
 		
 		if(strcmp("look", input1) == 0){
@@ -134,6 +134,7 @@ void play_game(user* ptr){ //USER API
 			printf("ROOM UNACCESSABLE");
 			continue;
 		}
+		
 		else if(strcmp("take", input1) == 0){
 			printf("THE ITEMS AVAILABLE IN THE ROOM IS:\n");
 			print_list(ptr->stage->item);
@@ -156,7 +157,6 @@ void play_game(user* ptr){ //USER API
 			else
 			printf("Item didn't match, you lost it");
 			continue;
-
 		}
 
 		else if(strcmp("drop", input1) == 0){
@@ -169,7 +169,7 @@ void play_game(user* ptr){ //USER API
 		}
 
 		else if(strcmp("help", input1) == 0){
-			printf("Type \"go\" to go to another room. Type \"look\" to look at your surroundings.\nType \"take\" to take an item in a room. Type \"drop\" to drop something from your inventory.\nType \"use\" to use something in your inventory. Type \"quit\" to quit the gane. Your progress won't be saved.\n\n");
+			printf("Type \"go\" to go to another room\nType \"look\" to look at your surroundings.\nType \"take\" to take an item in a room\nType \"drop\" to drop something from your inventory.\nType \"use\" to use something in your inventory\nType \"quit\" to quit the gane. Your progress won't be saved.\n");
 			continue;
 		}
 		else if(strcmp("quit", input1) == 0){
