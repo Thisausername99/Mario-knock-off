@@ -9,26 +9,28 @@
 struct user{
  struct Item* bag;
  chamber* stage;
+ char*current_stage;
 };
 
 typedef struct user user;
 
 
 
- user* initialize(struct Item*bag, chamber* begin){
+ user* initialize(struct Item*bag, chamber* begin,char*current_stage){
 	struct user* mario=(struct user*)malloc(sizeof(struct user));
 	mario->bag=bag;
 	mario->stage=begin;
+	mario->current_stage=current_stage;
 	return mario;
 }
 
 void add_item(struct Item*bag, struct Item*new){ //pass a pointer to add the item
 
-	if(bag == NULL){
-		bag = new;
+	if(bag->next==NULL){
+		bag->next = new;
 	}
-	else if(bag->next==NULL){
-		bag->next=new;
+	while(bag->next!=NULL){
+		bag=bag->next;
 	}	
 	bag->next=new;
 	
@@ -106,15 +108,31 @@ void play_game(user* ptr){ //USER API
 		}
 		else if(strcmp("take", input1) == 0){
 			scanf("%s",input2);
-
+			add_item(ptr->bag,item_take(ptr->stage->item));
+			printf("You just add %s to your bag, your Inventory is now:",stage->item->name);
+			print_list(bag);
 		}
+
 		else if(strcmp("use", input1) == 0){
 			scanf("%s",input2);
+			if(strcmp(take_item(input,bag)->name,stage->item_req)==0){
+			toggleBlocked(ptr->stage);
+			continue;
+			}
+			else
+			printf("Item didn't match you lost it");
+			continue;
 
 		}
+
+
 		else if(strcmp("drop", input1) == 0){
-					scanf("%s",input2);
+			scanf("%s",input2);
+			Item*drop_ptr=item_take(input2,bag);
+			printf("YOU DROP:%s",drop_ptr->name);
+			print_list(bag);
 		}
+
 		else if(strcmp("help", input1) == 0){
 			printf("Type \"go\" to go to another room. Type \"look\" to look at your surroundings.\nType \"take\" to take an item in a room. Type \"drop\" to drop something from your inventory.\nType \"use\" to use something in your inventory. Type \"quit\" to quit the gane. Your progress won't be saved.\n\n");
 		}
@@ -123,6 +141,7 @@ void play_game(user* ptr){ //USER API
 		}
 		else{
 			printf("I don't know what you mean.\n\n");
+			continue;
 		}
 	}
 	
@@ -132,11 +151,11 @@ void play_game(user* ptr){ //USER API
 int main(){
 	//prototypes
 	chamber* load_rooms();
-
+	Item*bag=item("","",NULL);
 
 	//initializes user with a NULL inventory and load_rooms() returning the starting room
 	chamber* start = load_rooms();
-	user* mario = initialize(NULL, start);
+	user* mario = initialize(bag, start);
 
 
 	printf("\n\nAnother perfect day at the Mushroom Kingdom has been ruined yet again. Princess Toadstool has been kidnapped and taken away to a far off castle.\nNow it's your job to get her back. Your story starts as you travel to the looming castle and opening its metal doors. They shut loudly behind you.\n\n");
