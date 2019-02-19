@@ -101,16 +101,19 @@ void play_game(user* ptr){ //USER API
 
 		if(strcmp("look", input1) == 0){
 			look(ptr->stage);
+			continue;
 		}
 		else if(strcmp("go", input1) == 0){
 			scanf("%s",input2);
 			go(ptr,input2);
+			continue;
 		}
 		else if(strcmp("take", input1) == 0){
 			scanf("%s",input2);
 			add_item(ptr->bag,item_take(ptr->stage->item));
 			printf("You just add %s to your bag, your Inventory is now:",stage->item->name);
 			print_list(bag);
+			continue;
 		}
 
 		else if(strcmp("use", input1) == 0){
@@ -120,7 +123,7 @@ void play_game(user* ptr){ //USER API
 			continue;
 			}
 			else
-			printf("Item didn't match you lost it");
+			printf("Item didn't match, you lost it");
 			continue;
 
 		}
@@ -131,10 +134,12 @@ void play_game(user* ptr){ //USER API
 			Item*drop_ptr=item_take(input2,bag);
 			printf("YOU DROP:%s",drop_ptr->name);
 			print_list(bag);
+			continue;
 		}
 
 		else if(strcmp("help", input1) == 0){
 			printf("Type \"go\" to go to another room. Type \"look\" to look at your surroundings.\nType \"take\" to take an item in a room. Type \"drop\" to drop something from your inventory.\nType \"use\" to use something in your inventory. Type \"quit\" to quit the gane. Your progress won't be saved.\n\n");
+			continue;
 		}
 		else if(strcmp("quit", input1) == 0){
 			end = true;
