@@ -50,5 +50,6 @@ void toggleBlocked(chamber* current);
 
 void room_desc(chamber*current);
 
+bool contain(char*search,Item*curr_room);
 
 	

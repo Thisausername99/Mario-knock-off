@@ -119,9 +119,18 @@ void play_game(user* ptr){ //USER API
 		}
 
 		else if(strcmp("take", input1) == 0){
+			printf("THE ITEMS AVAILABLE IN THIS ROOM\n");
+			print_list(ptr->stage->item);
+			printf("what you want to take:");
 			scanf("%s",input2);
+			if(contain(input2,ptr->stage->item)){
 			add_item(ptr->bag, item_take(input2, ptr->stage->item_list));
 			printf("You took add %s",ptr->stage->item->name);
+			continue;
+			}
+			else
+			printf("ITEM IS NOT EXIST!!!!\n");
+			continue;
 		}
 
 		else if(strcmp("use", input1) == 0){
