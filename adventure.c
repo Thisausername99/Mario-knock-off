@@ -151,7 +151,7 @@ void play_game(user* ptr){ //USER API
 		}
 
 		else if(strcmp("help", input1) == 0){
-			printf("Type \"go\" to go to another room\nType \"look\" to look at your surroundings.\nType \"take\" to take an item in a room\nType \"drop\" to drop something from your inventory.\nType \"use\" to use something in your inventory\nType \"quit\" to quit the gane. Your progress won't be saved.\n");
+			printf("Type \"go\" to go to another room\nType \"look\" to look at your surroundings.\nType \"take\" to take an item in a room\nType \"drop\" to drop something from your inventory.\nType \"use\" to use something in your inventory\nType \"quit\" to quit the game. Your progress won't be saved.\n");
 			continue;
 		}
 		else if(strcmp("quit", input1) == 0){
