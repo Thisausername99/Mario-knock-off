@@ -18,5 +18,6 @@ void print_list(struct Item*ptr);
 
 char* item_description(struct Item*ptr);
  
-struct Item* item_take(char*name, struct Item*head);
-    
+struct Item* item_take(char*name,Item *head);
+
+void add_item(struct Item*bag, struct Item*new);

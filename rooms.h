@@ -1,11 +1,12 @@
-#include<stdio.h>
-#include<stdbool.h>
+#include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
+
 
 struct Room{
   char*desc;
   char* reqItem;
-  char*item_list;
+  Item* item_list;
   bool isBlocked;
   struct Item* item;
   struct Room* south;
@@ -25,11 +26,13 @@ chamber * room(char* desc, char*tool, Item* items, chamber *north, chamber *sout
   
 bool state_conquered(char*item,chamber* current);
 
-void room_item(chamber*room);
+void setRoomItem(chamber*room, struct Item* item);
+
+bool takeRoomItem(chamber*room, struct Item* item);
 
 void display_room(chamber*room);
 
-chamber*initiate_room();
+chamber* initiate_room();
 
 void set_north(chamber*current,chamber*other);
 
@@ -46,4 +49,6 @@ void set_down(chamber*current,chamber*other);
 void toggleBlocked(chamber* current);
 
 void room_desc(chamber*current);
+
+
 	

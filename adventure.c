@@ -24,17 +24,6 @@ typedef struct user user;
 	return mario;
 }
 
-void add_item(struct Item*bag, struct Item*new){ //pass a pointer to add the item
-
-	if(bag->next==NULL){
-		bag->next = new;
-	}
-	while(bag->next!=NULL){
-		bag=bag->next;
-	}	
-	bag->next=new;
-	
-}
 
 
 void look(chamber*ptr){
@@ -45,22 +34,22 @@ void look(chamber*ptr){
 
 bool can_access(char*direction, user*ptr){
 	
-	if(strcmp("NORTH",direction)==0 && ptr->stage->north !=NULL && ptr->stage->isBlocked == false){
+	if(strcmp("NORTH",direction)==0 && ptr->stage->north !=NULL && ptr->stage->north->isBlocked == false){
   		return true;
    	}
-  	else if(strcmp("SOUTH",direction)==0 && ptr->stage->south !=NULL && ptr->stage->isBlocked == false){
+  	else if(strcmp("SOUTH",direction)==0 && ptr->stage->south !=NULL && ptr->stage->south->isBlocked == false){
   		return true;
   	}
-  	else if(strcmp("EAST",direction)==0 && ptr->stage->east !=NULL && ptr->stage->isBlocked == false){
+  	else if(strcmp("EAST",direction)==0 && ptr->stage->east !=NULL && ptr->stage->east->isBlocked == false){
   		return true;
   	}
-  	else if(strcmp("WEST",direction)==0 && ptr->stage->west !=NULL && ptr->stage->isBlocked == false){
+  	else if(strcmp("WEST",direction)==0 && ptr->stage->west !=NULL && ptr->stage->west->isBlocked == false){
   		return true;
   	}
-  	else if(strcmp("UP",direction)==0 && ptr->stage->up !=NULL && ptr->stage->isBlocked == false){
+  	else if(strcmp("UP",direction)==0 && ptr->stage->up !=NULL && ptr->stage->up->isBlocked == false){
   		return true;
   	}
- 	else if(strcmp("DOWN",direction)==0 && ptr->stage->down !=NULL && ptr->stage->isBlocked == false){
+ 	else if(strcmp("DOWN",direction)==0 && ptr->stage->down !=NULL && ptr->stage->down->isBlocked == false){
   		return true;
   	}
   	return false;
@@ -114,57 +103,42 @@ void play_game(user* ptr){ //USER API
 
 	while(!end){
 
-		printf("\nWhat do you do? Type \"help\" for a list of commands\n");
+		printf("What do you do? Type \"help\" for a list of commands\n");
 		scanf("%s",input1);
 		
 		if(strcmp("look", input1) == 0){
 			look(ptr->stage);
-			continue;
 		}
 		else if(strcmp("go", input1) == 0){
-			printf("CHOOSE A DIRECTION:");
 			scanf("%s",input2);
 			if(can_access(input2,ptr)){
-			go(ptr,input2);
-			printf("YOU ARE CURRENTLY IN %s:",ptr->stage->desc);
-			continue;
+				go(ptr,input2);
 			}
 			else
-			printf("ROOM UNACCESSABLE");
-			continue;
+			printf("You can't go that way.\n");
 		}
 
 		else if(strcmp("take", input1) == 0){
-			printf("THE ITEMS AVAILABLE IN THE ROOM IS:\n");
-			print_list(ptr->stage->item);
-			printf("CHOOSE ITEM YOU WANT TO TAKE");
 			scanf("%s",input2);
-			add_item(ptr->bag,item_take(input2,ptr->stage->item));
-			printf("You just add %s to your bag, your Inventory is now:",ptr->stage->item->name);
-			print_list(ptr->bag);
-			continue;
+			add_item(ptr->bag, item_take(input2, ptr->stage->item_list));
+			printf("You took add %s",ptr->stage->item->name);
 		}
 
 		else if(strcmp("use", input1) == 0){
-			print_list(ptr->bag);
-			printf("CHOOSE ITEMS YOU WANT TO USE:");
 			scanf("%s",input2);
 			if(strcmp(item_take(input2,ptr->bag)->name,ptr->stage->reqItem)==0){
 			toggleBlocked(ptr->stage);
-			continue;
 			}
 			else
-			printf("Item didn't match, you lost it");
+			printf("You can't use that item here.\n");
 			continue;
 		}
 
 		else if(strcmp("drop", input1) == 0){
 			scanf("%s",input2);
 			Item*drop_ptr=item_take(input2,ptr->bag);
-			printf("YOU DROP:%s",drop_ptr->name);
-			print_list(ptr->bag);
+			printf("You dropped the %s",drop_ptr->name);
 			free(drop_ptr);
-			continue;
 		}
 
 		else if(strcmp("help", input1) == 0){

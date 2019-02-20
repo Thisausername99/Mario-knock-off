@@ -85,3 +85,15 @@ Item* item_take(char*name,Item *head){
     //free(current);
     return result;
 }
+
+void add_item(struct Item*bag, struct Item*new){ //pass a pointer to add the item
+
+  if(bag==NULL){
+    bag = new;
+  }
+  else if(bag->next == NULL){
+    bag->next=new;
+  } 
+  add_item(bag->next, new);
+  
+}
