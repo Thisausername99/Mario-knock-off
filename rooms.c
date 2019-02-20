@@ -108,10 +108,10 @@ chamber* load_rooms(){
 
 	set_west(room_23,room_22);
 
-	room_12->item_list = item("Fire Flower", "a Fire Flower", NULL);
-	room_21->item_list = item("Koopa Shell", "a Koopa Shell", NULL);
-	room_24->item_list = item("Axe", "an Axe", NULL);
-	room_12->item_list = item("Mushroom", "a Mushroom", NULL);
+	room_12->item_list = item("",""item("Fire Flower", "a Fire Flower", NULL));
+	room_21->item_list = item("",""item("Koopa Shell", "a Koopa Shell", NULL));
+	room_24->item_list = item("",""item("Axe", "an Axe", NULL));
+	room_12->item_list = item("",""item("Mushroom", "a Mushroom", NULL));
 
 
 	return room_11;
