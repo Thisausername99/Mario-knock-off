@@ -13,6 +13,8 @@ char* item_description(Item* input){
 
 
 void print_list(Item*head){
+  if(head->next==NULL){printf("ROOM IS EMPTY");return;}
+
   struct Item*current=head->next;
   int i=1;
   while(current!=NULL){
@@ -35,7 +37,7 @@ Item*item(char* name1, char* description1, struct Item* input){
 
 
 Item* item_take(char*name,Item *head){
-    Item* result=NULL;
+    Item* result=(Item*)malloc(sizeof(Item));
     Item* previous=NULL;
   
     if(head->next==NULL){  // nothing in the list
@@ -68,7 +70,7 @@ Item* item_take(char*name,Item *head){
         else if(previous->next==head){
           if(head->next==NULL){ //at the end
             result=head;
-            head->next=NULL;
+            previous->next=NULL;
             break;
             }
           else // in the middle
@@ -81,19 +83,20 @@ Item* item_take(char*name,Item *head){
     previous=head;
     head=head->next;
   }
-    free(previous);
+    //free(previous);
     //free(current);
     return result;
 }
 
 void add_item(struct Item*bag, struct Item*new){ //pass a pointer to add the item
-
-  if(bag==NULL){
-    bag = new;
+  if(bag->next==NULL){
+    bag->next = new;
+    return;
   }
-  else if(bag->next == NULL){
-    bag->next=new;
+  else{
+  while(bag->next!= NULL){
+        bag=bag->next;
   } 
-  add_item(bag->next, new);
-  
+  bag->next=new;
+  }
 }

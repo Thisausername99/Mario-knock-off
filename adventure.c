@@ -120,17 +120,25 @@ void play_game(user* ptr){ //USER API
 
 		else if(strcmp("take", input1) == 0){
 			printf("THE ITEMS AVAILABLE IN THIS ROOM\n");
-			print_list(ptr->stage->item);
-			printf("what you want to take:");
-			scanf("%s",input2);
-			if(contain(input2,ptr->stage->item)){
-			add_item(ptr->bag, item_take(input2, ptr->stage->item_list));
-			printf("You took add %s",ptr->stage->item->name);
-			continue;
+			if(ptr->stage->item->next!=NULL){
+				print_list(ptr->stage->item);
+				printf("what you want to take:");
+				scanf("%s",input2);
+
+				if(contain(input2,ptr->stage->item)){
+					printf("CONTAINED");
+					add_item(ptr->bag,item_take(input2,ptr->stage->item));
+					printf("YOUR NEW INVENTORY");
+					print_list(ptr->bag);
+					continue;
+				}
+				else
+					printf("ITEM IS NOT EXIST!!!!\n");
+					continue;
 			}
 			else
-			printf("ITEM IS NOT EXIST!!!!\n");
-			continue;
+				printf("ROOM IS EMPTY");
+				continue;
 		}
 
 		else if(strcmp("use", input1) == 0){
@@ -144,10 +152,15 @@ void play_game(user* ptr){ //USER API
 		}
 
 		else if(strcmp("drop", input1) == 0){
+			printf("what do you want to drop:");
+			print_list(ptr->bag);
 			scanf("%s",input2);
 			Item*drop_ptr=item_take(input2,ptr->bag);
 			printf("You dropped the %s",drop_ptr->name);
 			free(drop_ptr);
+			printf("YOUR INVENTORY:\n");
+			print_list(ptr->bag);
+			continue;
 		}
 
 		else if(strcmp("help", input1) == 0){
@@ -169,8 +182,15 @@ void play_game(user* ptr){ //USER API
 int main(){
 	//prototypes
 	chamber* load_rooms();
-	Item*bag=item("","",NULL);
-
+	/*Item*item_11 = item("","",item("mushroom", "TO ENLARGE", NULL));
+	
+	chamber* room_11 = new_room("ROOM 1-1. The room is dim with no lighting except light pouring from the outside of the front gate you've entered from. The stone brick walls surrounds you.\nYou see a rectangular opening EAST of you.\n",
+	NULL,item_11,false,NULL,NULL,NULL,NULL,NULL,NULL);
+	*/
+	//chamber* start = load_rooms();
+	Item*bag=item("","", item("test","testing",NULL));
+	/*add_item(bag,item_take("mushroom",room_11->item));
+	print_list(bag);*/
 	//initializes user with a NULL inventory and load_rooms() returning the starting room
 	chamber* start = load_rooms();
 	user* mario = initialize(bag, start);
@@ -180,6 +200,6 @@ int main(){
 	
 
 	play_game(mario);
-
+	
 	return 0;
 }

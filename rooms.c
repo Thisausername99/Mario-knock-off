@@ -31,16 +31,13 @@ chamber * new_room(char* desc, char* tool, Item *item_list, bool blocked, chambe
 bool contain(char*search,Item*curr_room){
 	curr_room=curr_room->next;
 	while(curr_room!=NULL){
-		if(strcmp(search,curr_room->name)==0){
+		if(strcmp(search , curr_room->name)==0){
 			return true;
 		}
 		curr_room=curr_room->next;
 	}
 	return false;
 }
-
-
-
 
 
 
@@ -84,10 +81,17 @@ chamber* load_rooms(){
 
 
 
-	Item*item_12 = item("","",item("Fire Flower", "a Fire Flower", NULL));
+	Item*item_12 = item("","",item("fireflower", "a Fire Flower", NULL));
+
+	Item*item_11 = item("","",item("mushroom", "TO ENLARGE", NULL));
+
+	/*Item*item_12 = item("","",item("Fire Flower", "a Fire Flower", NULL));
+
+	Item*item_12 = item("","",item("Fire Flower", "a Fire Flower", NULL));*/
+
 
 	chamber* room_11 = new_room("ROOM 1-1. The room is dim with no lighting except light pouring from the outside of the front gate you've entered from. The stone brick walls surrounds you.\nYou see a rectangular opening EAST of you.\n",
-	NULL, NULL,false,NULL,NULL,NULL,NULL,NULL,NULL);
+	NULL,item_11,false,NULL,NULL,NULL,NULL,NULL,NULL);
 
 	chamber* room_12 = new_room("ROOM 1-2. The room's walls are smokey and dark. Metal sconces are chained to the walls and their flames lick up at crumbling ceiling.\nOne of the flames behaves differently from the others and doesn't burn you as you approach.\nOn further inspection, it isn't real fire but a Fire Flower emitting a shining light. An old wooden door NORTH of you blocks your way NORTH. It does not budge. You see a way WEST of you.\n",
 	"Fire Flower", item_12,false,NULL,NULL,NULL,NULL,NULL,NULL);
