@@ -58,7 +58,6 @@ bool can_access(char*direction, user*ptr){
 
 
 void go(user* ptr, char* direction){ 
-	//chamber*temp=ptr->stage;
 	if(strcmp("NORTH",direction)==0){
   		ptr->stage=ptr->stage->north;
   		printf("You moved NORTH\n\n");
@@ -89,7 +88,6 @@ void go(user* ptr, char* direction){
   		printf("You moved DOWN\n\n");
   		
   	}
-  	//free(temp);
 	
 }
 
@@ -102,7 +100,6 @@ void play_game(user* ptr){ //USER API
 	bool end=false;
 
 	while(!end){
-
 		printf("What do you do? Type \"help\" for a list of commands\n");
 		scanf("%s",input1);
 		
@@ -125,9 +122,9 @@ void play_game(user* ptr){ //USER API
 				printf("what you want to take:");
 				scanf("%s",input2);
 
-				while(!contain(input2,ptr->stage->item)){
+				while(!contain(input2,ptr->stage->item) && !strcmp(input2,"x")==0){
 					printf("ITEM IS NOT EXIST!!!!\n");
-					printf("Choose again:");
+					printf("Choose again or x to stop:");
 					scanf("%s",input2);
 				}
 					//printf("CONTAINED");
@@ -136,10 +133,6 @@ void play_game(user* ptr){ //USER API
 				print_list(ptr->bag);
 					continue;
 				}
-			
-				//else
-					//printf("ITEM IS NOT EXIST!!!!\n");
-					//continue;
 			else
 				printf("ROOM IS EMPTY\n");
 				continue;
@@ -150,11 +143,11 @@ void play_game(user* ptr){ //USER API
 			printf("WHAT YOU WANT TO USE:\n");
 			scanf("%s",input2);
 			if(strcmp(item_take(input2,ptr->bag)->name,ptr->stage->reqItem)==0){
-			toggleBlocked(ptr->stage);
+				toggleBlocked(ptr->stage);
 			}
 			else
-			printf("You can't use that item here.\n");
-			continue;
+				printf("You can't use that item here.\n");
+				continue;
 		}
 
 		else if(strcmp("drop", input1) == 0){
@@ -188,21 +181,12 @@ void play_game(user* ptr){ //USER API
 int main(){
 	//prototypes
 	chamber* load_rooms();
-	/*Item*item_11 = item("","",item("mushroom", "TO ENLARGE", NULL));
-	
-	chamber* room_11 = new_room("ROOM 1-1. The room is dim with no lighting except light pouring from the outside of the front gate you've entered from. The stone brick walls surrounds you.\nYou see a rectangular opening EAST of you.\n",
-	NULL,item_11,false,NULL,NULL,NULL,NULL,NULL,NULL);
-	*/
-	//chamber* start = load_rooms();
 	Item*bag=item("","", item("test","testing",NULL));
-	/*add_item(bag,item_take("mushroom",room_11->item));
-	print_list(bag);*/
 	//initializes user with a NULL inventory and load_rooms() returning the starting room
 	chamber* start = load_rooms();
 	user* mario = initialize(bag, start);
 
-
-	printf("\n\nAnother perfect day at the Mushroom Kingdom has been ruined yet again. Princess Toadstool has been kidnapped and taken away to a far off castle.\nNow it's your job to get her back. Your story starts as you travel to the looming castle and opening its metal doors. They shut loudly behind you.\n\n");
+	printf("WORLD DESCRIPTION:\nAnother perfect day at the Mushroom Kingdom has been ruined yet again. Princess Toadstool has been kidnapped and taken away to a far off castle.\nNow it's your job to get her back. Your story starts as you travel to the looming castle and opening its metal doors. They shut loudly behind you.\n\n");
 	
 
 	play_game(mario);
