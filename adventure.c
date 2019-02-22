@@ -125,23 +125,29 @@ void play_game(user* ptr){ //USER API
 				printf("what you want to take:");
 				scanf("%s",input2);
 
-				if(contain(input2,ptr->stage->item)){
-					printf("CONTAINED");
-					add_item(ptr->bag,item_take(input2,ptr->stage->item));
-					printf("YOUR NEW INVENTORY");
-					print_list(ptr->bag);
+				while(!contain(input2,ptr->stage->item)){
+					printf("ITEM IS NOT EXIST!!!!\n");
+					printf("Choose again:");
+					scanf("%s",input2);
+				}
+					//printf("CONTAINED");
+				add_item(ptr->bag,item_take(input2,ptr->stage->item));
+				printf("YOUR NEW INVENTORY");
+				print_list(ptr->bag);
 					continue;
 				}
-				else
-					printf("ITEM IS NOT EXIST!!!!\n");
-					continue;
-			}
+			
+				//else
+					//printf("ITEM IS NOT EXIST!!!!\n");
+					//continue;
 			else
-				printf("ROOM IS EMPTY");
+				printf("ROOM IS EMPTY\n");
 				continue;
 		}
 
 		else if(strcmp("use", input1) == 0){
+			print_list(ptr->bag);
+			printf("WHAT YOU WANT TO USE:\n");
 			scanf("%s",input2);
 			if(strcmp(item_take(input2,ptr->bag)->name,ptr->stage->reqItem)==0){
 			toggleBlocked(ptr->stage);
@@ -156,8 +162,8 @@ void play_game(user* ptr){ //USER API
 			print_list(ptr->bag);
 			scanf("%s",input2);
 			Item*drop_ptr=item_take(input2,ptr->bag);
-			printf("You dropped the %s",drop_ptr->name);
-			add_item(ptr->stage->item,drop);
+			printf("You dropped the %s\n",drop_ptr->name);
+			add_item(ptr->stage->item,drop_ptr);
 			printf("YOUR INVENTORY:\n");
 			print_list(ptr->bag);
 			continue;
