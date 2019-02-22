@@ -157,7 +157,7 @@ void play_game(user* ptr){ //USER API
 			scanf("%s",input2);
 			Item*drop_ptr=item_take(input2,ptr->bag);
 			printf("You dropped the %s",drop_ptr->name);
-			free(drop_ptr);
+			add_item(ptr->stage->item,drop);
 			printf("YOUR INVENTORY:\n");
 			print_list(ptr->bag);
 			continue;
