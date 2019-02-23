@@ -78,7 +78,6 @@ void display_room(chamber* ptr){
 
 
 chamber* load_rooms(){
-
 	Item*item_12 = item("","",item("fireflower", "a Fire Flower", NULL));
 
 	Item*item_11 = item("","",item("mushroom", "TO ENLARGE", NULL));
@@ -89,10 +88,17 @@ chamber* load_rooms(){
 
 
 	chamber* room_11 = new_room("ROOM 1-1. The room is dim with no lighting except light pouring from the outside of the front gate you've entered from. The stone brick walls surrounds you.\nYou see a rectangular opening EAST of you.\n",
+
 	NULL,NULL,false,NULL,NULL,NULL,NULL,NULL,NULL);
 
 	chamber* room_12 = new_room("ROOM 1-2. The room's walls are smokey and dark. Metal sconces are chained to the walls and their flames lick up at crumbling ceiling.\nOne of the flames behaves differently from the others and doesn't burn you as you approach.\nOn further inspection, it isn't real fire but a Fire Flower emitting a shining light. An old wooden door NORTH of you blocks your way NORTH. It does not budge. You see a way WEST of you.\n",
 	"fireflower", item_12,false,NULL,NULL,NULL,NULL,NULL,NULL);
+
+	
+
+	chamber* room_12 = new_room("ROOM 1-2. The room's walls are smokey and dark. Metal sconces are chained to the walls and their flames lick up at crumbling ceiling.\nOne of the flames behaves differently from the others and doesn't burn you as you approach.\nOn further inspection, it isn't real fire but a Fire Flower emitting a shining light. An old wooden door NORTH of you blocks your way NORTH. It does not budge. You see a way WEST of you.\n",
+	"Fire Flower", item_12,false,NULL,NULL,NULL,NULL,NULL,NULL);
+
 
 	chamber* room_13 = new_room("ROOM 1-3. The first thing you notice are stones and dust falling from the rooms ceiling.\nThe ceiling in this room is falling apart and would most likely give if you even touched it, but you are too short as you are.\nThe room's floor gives way to dirt instead of stone. You see a way SOUTH and WEST of you.\n",
 	"Mushroom", NULL,true,NULL,NULL,NULL,NULL,NULL,NULL);
@@ -133,7 +139,10 @@ chamber* load_rooms(){
 	set_west(room_23,room_22);
 
 	//Item*item_12 = item("","",item("Fire Flower", "a Fire Flower", NULL));
+
 	room_11->item = item("","",item("koopashell", "a Koopa Shell", NULL));
+
+	//room_21->item_list = item("","",item("Koopa Shell", "a Koopa Shell", NULL));
 	//room_24->item_list = item("","",item("Axe", "an Axe", NULL));
 	//room_12->item_list = item("","",item("Mushroom", "a Mushroom", NULL));
 

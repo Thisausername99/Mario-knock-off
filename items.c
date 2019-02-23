@@ -11,61 +11,64 @@ char* item_description(Item* input){
   return input->description;
 }
 
-
 void print_list(Item*head){
-  if(head->next==NULL){printf("ROOM IS EMPTY");return;}
-
-  struct Item*current=head->next;
-  int i=1;
-  while(current!=NULL){
-    printf("*Item %i is: %s \n*Description: %s \n",i,current->name,current->description);
-    ++i;
-    current=current->next;
+  if(head->next == NULL){ //head is the dummy node, so next is first in list
+    printf("ROOM HAS NO ITEMS"); //room is empty if next thing is null
+    return;
+  }
+  struct Item*current = head->next;
+  int i = 1;
+  while(current!=NULL){ //traversing the item list
+    printf("*Item %i is: %s \n*Description: %s \n", i, current->name, current->description);
+    ++i; //increment the item number
+    current = current->next;
   }
 }
 
+Item*item(char* name1, char* description1, struct Item* input){ //creates new item
+  struct Item*temp = (struct Item*)malloc(sizeof(struct Item)); //allocates space for item
+  temp->name = name1; //assigns
+  temp->description = description1; //the item's
+  temp->next = input; //information
 
-Item*item(char* name, char* description, struct Item* next){
-  struct Item*temp=(struct Item*)malloc(sizeof(struct Item));
-  temp->name=name;
-  temp->description=description;
-  temp->next=next;
   return temp;
 }
 
 
 
-Item* item_take(char*name,Item *head){
-  Item* result=NULL;
-  Item* previous=head;
-  Item*curr=head->next; // skip the dummy node
+Item* item_take(char*name,Item *head){ //take an item from the room
+    Item* result = NULL; //pointer to the item we're taking
+    Item* previous = head; //previous item in the list
+    Item* curr = head->next; // skip the dummy node
     
-  while(curr!=NULL){ 
-    if(strcmp(name,curr->name)==0){
-        result=curr;
-        previous->next=curr->next;
-        result->next=NULL;
+    while(curr!=NULL){ //traversing item list
+      if(strcmp(name, curr->name) == 0){ //item found
+        result = curr; //result updated
+        previous->next = previous->next->next; //removes item from list
+        result->next = NULL; //removes item from the list
         break;
       }
+      else{ //item was not the one we're taking
+        previous = curr; //updates previous item
+        curr = curr->next; //next item in list
 
-      else{
-        previous=curr;
-        curr=curr->next;
       }
     }
     return result;
   }
 
 
-void add_item(struct Item*bag, struct Item*new){ //pass a pointer to add the item
-  if(bag->next==NULL){
-    bag->next = new;
+
+void add_item(struct Item*bag, struct Item*new){ //adds item to player's bag
+  if(bag->next == NULL){ //nothing else in list
+    bag->next = new; //adds new item to the player's bag
     return;
   }
   else{
-    while(bag->next!= NULL){
-      bag=bag->next;
+    while(bag->next != NULL){ //finds last thing in list
+      bag = bag->next; 
     } 
-    bag->next=new;
+    bag->next = new; //adds new item to the player's bag
   }
 }
+
