@@ -13,6 +13,8 @@ char* item_description(Item* input){
 
 
 void print_list(Item*head){
+  if(head->next==NULL){printf("ROOM IS EMPTY");return;}
+
   struct Item*current=head->next;
   int i=1;
   while(current!=NULL){
@@ -20,80 +22,50 @@ void print_list(Item*head){
     ++i;
     current=current->next;
   }
-  free(current);
 }
 
 
-Item*item(char* name1, char* description1, struct Item* input){
-    struct Item*temp=(struct Item*)malloc(sizeof(struct Item));
-    temp->name=name1;
-    temp->description=description1;
-    temp->next=input;
-    return temp;
+Item*item(char* name, char* description, struct Item* next){
+  struct Item*temp=(struct Item*)malloc(sizeof(struct Item));
+  temp->name=name;
+  temp->description=description;
+  temp->next=next;
+  return temp;
 }
 
 
 
 Item* item_take(char*name,Item *head){
-    Item* result=NULL;
-    Item* previous=NULL;
-  
-    if(head->next==NULL){  // nothing in the list
-      return NULL;
-    }
+  Item* result=NULL;
+  Item* previous=head;
+  Item*curr=head->next; // skip the dummy node
+    
+  while(curr!=NULL){ 
+    if(strcmp(name,curr->name)==0){
+        result=curr;
+        previous->next=curr->next;
+        result->next=NULL;
+        break;
+      }
 
-    else if(head->next->next==NULL && strcmp(head->next->name,name)==0){
-      result=head->next;
-      head->next=NULL;  //only one
-      return result;
-    }
-
-    head=head->next; // skip the dummy node
-    while(head!=NULL){ 
-      if(strcmp(name,head->name)==0){
-        if(previous==NULL){ //remove first
-            result=head->next;
-            char*temp_name=head->name;
-            char*temp_desc=head->description;
-            
-            //*current=*current->next;
-            head->name=head->next->name;
-            head->description=head->next->description;
-            head->next=head->next->next;
-            
-            result->name=temp_name;
-            result->description=temp_desc;
-          break;
-        }
-        else if(previous->next==head){
-          if(head->next==NULL){ //at the end
-            result=head;
-            head->next=NULL;
-            break;
-            }
-          else // in the middle
-            result=head;
-            previous->next=previous->next->next;
-            head=previous->next;
-            break;
+      else{
+        previous=curr;
+        curr=curr->next;
       }
     }
-    previous=head;
-    head=head->next;
-  }
-    free(previous);
-    //free(current);
     return result;
-}
+  }
+
 
 void add_item(struct Item*bag, struct Item*new){ //pass a pointer to add the item
-
-  if(bag==NULL){
-    bag = new;
+  if(bag->next==NULL){
+    bag->next = new;
+    return;
   }
-  else if(bag->next == NULL){
+  else{
+    while(bag->next!= NULL){
+      bag=bag->next;
+    } 
     bag->next=new;
-  } 
-  add_item(bag->next, new);
-  
+  }
 }
