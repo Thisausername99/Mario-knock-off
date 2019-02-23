@@ -58,32 +58,32 @@ bool can_access(char*direction, user*ptr){
 
 
 void go(user* ptr, char* direction){ 
-	if(strcmp("NORTH",direction)==0){
+	if(strcasecmp("NORTH",direction)==0){
   		ptr->stage=ptr->stage->north;
   		printf("You moved NORTH\n\n");
   		
    	}
-  	else if(strcmp("SOUTH",direction)==0){
+  	else if(strcasecmp("SOUTH",direction)==0){
   		ptr->stage=ptr->stage->south;
   		printf("You moved SOUTH\n\n");
   		
   	}
-  	else if(strcmp("EAST",direction)==0){
+  	else if(strcasecmp("EAST",direction)==0){
   		ptr->stage=ptr->stage->east;
   		printf("You moved EAST\n\n");
   		
   	}
-  	else if(strcmp("WEST",direction)==0){
+  	else if(strcasecmp("WEST",direction)==0){
   		ptr->stage=ptr->stage->west;
   		printf("You moved WEST\n\n");
   		
   	}
-  	else if(strcmp("UP",direction)==0){
+  	else if(strcasecmp("UP",direction)==0){
   		ptr->stage=ptr->stage->up;
   		printf("You moved UP\n\n");
   		
   	}
- 	else if(strcmp("DOWN",direction)==0){
+ 	else if(strcasecmp("DOWN",direction)==0){
   		ptr->stage=ptr->stage->down;
   		printf("You moved DOWN\n\n");
   		
@@ -101,9 +101,9 @@ void play_game(user* ptr){ //USER API
 
 	while(!end){
 		printf("What do you do? Type \"help\" for a list of commands\n");
-		scanf("%s",input1);
+		fgets(input1,100,stdin);
 		
-		if(strcmp("look", input1) == 0){
+		if(strcasecmp("look", input1) == 0){
 			look(ptr->stage);
 		}
 		else if(strcmp("go", input1) == 0){
@@ -120,18 +120,18 @@ void play_game(user* ptr){ //USER API
 			if(ptr->stage->item->next!=NULL){
 				print_list(ptr->stage->item);
 				printf("what you want to take:");
-				scanf("%s",input2);
+				fgets(input2,100,stdin);
 
-				while(!contain(input2,ptr->stage->item) && !strcmp(input2,"x")==0){
+				while(!contain(input2,ptr->stage->item) && !strcasecmp(input2,"x")==0){
 					printf("ITEM IS NOT EXIST!!!!\n");
 					printf("Choose again or x to stop:");
 					scanf("%s",input2);
 				}
 					//printf("CONTAINED");
 				add_item(ptr->bag,item_take(input2,ptr->stage->item));
-				printf("YOUR NEW INVENTORY");
+				printf("YOUR NEW INVENTORY\n");
 				print_list(ptr->bag);
-					continue;
+				continue;
 				}
 			else
 				printf("ROOM IS EMPTY\n");
@@ -150,7 +150,7 @@ void play_game(user* ptr){ //USER API
 				continue;
 		}
 
-		else if(strcmp("drop", input1) == 0){
+		else if(strcmp("drop", input1) == 0){		
 			printf("what do you want to drop:");
 			print_list(ptr->bag);
 			scanf("%s",input2);
