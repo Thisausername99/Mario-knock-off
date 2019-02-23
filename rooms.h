@@ -6,9 +6,8 @@
 struct Room{
   char*desc;
   char* reqItem;
-  Item* item_list;
+  Item* item;
   bool isBlocked;
-  struct Item* item;
   struct Room* south;
   struct Room* north;
   struct Room* east;
@@ -32,8 +31,6 @@ bool takeRoomItem(chamber*room, struct Item* item);
 
 void display_room(chamber*room);
 
-chamber* initiate_room();
-
 void set_north(chamber*current,chamber*other);
 
 void set_south(chamber*current,chamber*other);
@@ -50,5 +47,7 @@ void toggleBlocked(chamber* current);
 
 void room_desc(chamber*current);
 
+bool contain(char*search,Item*curr_room);
 
+chamber* load_room();
 	
