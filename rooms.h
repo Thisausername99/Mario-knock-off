@@ -21,7 +21,6 @@ typedef struct Room chamber;
 chamber * room(char* desc, char*tool, Item* items, chamber *north, chamber *south,
 	chamber *east, chamber *west, chamber *up, chamber *down);
 
-//void room_exit(struct Room* current, struct Room* other,char* direction);
   
 bool state_conquered(char*item,chamber* current);
 
