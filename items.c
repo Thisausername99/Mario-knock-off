@@ -3,22 +3,22 @@
 #include <string.h>
 
 
-char* item_name(Item* input){
+char* item_name(Item* input){ //sets item name
   return input->name;
 }
 
-char* item_description(Item* input){
+char* item_description(Item* input){ //sets item description
   return input->description;
 }
 
-void print_list(Item*head){
+void print_list(Item*head){ //prints list
   if(head->next == NULL){ //head is the dummy node, so next is first in list
     printf("ROOM HAS NO ITEMS"); //room is empty if next thing is null
     return;
   }
   struct Item*current = head->next;
   int i = 1;
-  while(current!=NULL){ //traversing the item list
+  while(current != NULL){ //traversing the item list
     printf("*Item %i is: %s \n*Description: %s \n", i, current->name, current->description);
     ++i; //increment the item number
     current = current->next;
@@ -30,18 +30,16 @@ Item*item(char* name1, char* description1, struct Item* input){ //creates new it
   temp->name = name1; //assigns
   temp->description = description1; //the item's
   temp->next = input; //information
-
+  
   return temp;
 }
 
-
-
 Item* item_take(char*name,Item *head){ //take an item from the room
     Item* result = NULL; //pointer to the item we're taking
-    Item* previous = head; //previous item in the list
+    Item* previous = NULL; //previous item in the list
+    previous = head; 
     Item* curr = head->next; // skip the dummy node
-    
-    while(curr!=NULL){ //traversing item list
+    while(curr != NULL){ //traversing item list
       if(strcmp(name, curr->name) == 0){ //item found
         result = curr; //result updated
         previous->next = previous->next->next; //removes item from list
@@ -51,13 +49,10 @@ Item* item_take(char*name,Item *head){ //take an item from the room
       else{ //item was not the one we're taking
         previous = curr; //updates previous item
         curr = curr->next; //next item in list
-
       }
     }
     return result;
-  }
-
-
+}
 
 void add_item(struct Item*bag, struct Item*new){ //adds item to player's bag
   if(bag->next == NULL){ //nothing else in list
@@ -71,4 +66,3 @@ void add_item(struct Item*bag, struct Item*new){ //adds item to player's bag
     bag->next = new; //adds new item to the player's bag
   }
 }
-
