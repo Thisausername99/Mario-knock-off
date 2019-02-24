@@ -110,9 +110,11 @@ void play_game(user* ptr){ //USER API
 			if(can_access(input2, ptr)){ //if room is not blocked
 				go(ptr, input2); //go to the room
 			}
-			else
+			else{
 				system("setterm -bold on");
-				printf("You can't go that way.\n"); 
+				printf("You can't go that way.\n");
+				system("setterm -bold off");
+			}
 		}
 
 		else if(strcmp("take", input1) == 0){ //take an item
@@ -120,13 +122,13 @@ void play_game(user* ptr){ //USER API
 
 			if(ptr->stage->item->next != NULL){ //item list not empty
 				print_list(ptr->stage->item); //prints list of items
-				printf("what you want to take:"); 
+				printf("what you want to take: "); 
 				scanf("%s", input2);
 
 				while(!contain(input2, ptr->stage->item) && !strcmp(input2,"x")==0){ //rechoose if incorrect input given
 					printf("ITEM IS NOT EXIST!!!!\n"); 
 					print_list(ptr->stage->item); //prints list again
-					printf("Choose again or x to stop:");
+					printf("Choose again or x to stop: ");
 					scanf("%s", input2);
 				}
 				add_item(ptr->bag, item_take(input2, ptr->stage->item)); //takes item and adds it to the player's bag
@@ -134,9 +136,10 @@ void play_game(user* ptr){ //USER API
 				print_list(ptr->bag); //prints out list of bag items
 				continue;
 				}
-			else
+			else{
 				printf("ROOM IS EMPTY\n");
 				continue;
+			}
 		}
 
 		else if(strcmp("use", input1) == 0){ //use an item from your bag
@@ -146,14 +149,15 @@ void play_game(user* ptr){ //USER API
 			if(strcmp(item_take(input2,ptr->bag)->name, ptr->stage->reqItem)==0){ //take item from bag
 				toggleBlocked(ptr->stage); //unblock next room
 			}
-			else
+			else{
 				printf("You can't use that item here.\n");
 				continue;
+			}
 		}
 
 		else if(strcmp("drop", input1) == 0){ //drop an item
 			print_list(ptr->bag); //prints out bag list
-			printf("what do you want to drop:");
+			printf("what do you want to drop: ");
 			scanf("%s", input2);
 			Item*drop_ptr = item_take(input2, ptr->bag); //take item out of bag
 			printf("You dropped the %s\n", drop_ptr->name);
