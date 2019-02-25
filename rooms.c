@@ -28,7 +28,7 @@ chamber * new_room(char* desc, char* tool, Item *item_list, bool blocked, chambe
 bool contain(char*search, Item*curr_room){ //checks whether or not item is in room
 	curr_room = curr_room->next; //skips summy head
 	while(curr_room != NULL){
-		if(strcmp(search , curr_room->name)==0){ //item found
+		if(strncmp(search, curr_room->name, strlen(curr_room->name))==0){ //item found
 			return true;
 		}
 		curr_room = curr_room->next; //checks next item in the list
@@ -64,7 +64,24 @@ void set_down(chamber* current,chamber* other){ //sets the room below the curren
 }
 
 void toggleBlocked(chamber* current){ //changes the blocked status of the room
-	current->isBlocked =! (current->isBlocked);
+	if(current->north !=NULL && current->north->isBlocked == true){
+  		current->north->isBlocked = false; //unblocks north room
+   	}
+  	else if(current->south !=NULL && current->south->isBlocked == true){
+  		current->south->isBlocked = false; //unblocks south room
+  	}
+  	else if(current->east !=NULL && current->east->isBlocked == true){
+  		current->east->isBlocked = false; //unblocks east room
+  	}
+  	else if(current->west !=NULL && current->west->isBlocked == true){
+  		current->west->isBlocked = false; //unblocks west room
+  	}
+  	else if(current->up !=NULL && current->up->isBlocked == true){
+  		current->up->isBlocked = false; //unblocks above room
+  	}
+ 	else if(current->down !=NULL && current->down->isBlocked == true){
+  		current->down->isBlocked = false; //unblocks lower room
+  	} 
 }
 
 
@@ -75,9 +92,9 @@ void display_room(chamber* ptr){ //prints the description of the room
 
 
 chamber* load_rooms(){ //creates all the rooms and connects them
-	Item*item_12 = item("","", item("fireflower", "a Fire Flower", NULL)); //creates fire flower for room 1-2
+	Item*item_12 = item("","", item("Fire Flower", "a Fire Flower", NULL)); //creates fire flower for room 1-2
 
-	Item*item_11 = item("","", item("mushroom", "TO ENLARGE", NULL)); //creates mushroom for room 1-1
+	Item*item_11 = item("","", item("Mushroom", "TO ENLARGE", NULL)); //creates mushroom for room 1-1
 
 	chamber* room_11 = new_room("ROOM 1-1. The room is dim with no lighting except light pouring from the outside of the front gate you've entered from. The stone brick walls surrounds you.\nYou see a rectangular opening EAST of you.\n",
 	NULL,item_11,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 1-1, the starting room
