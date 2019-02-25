@@ -13,7 +13,7 @@ char* item_description(Item* input){ //sets item description
 
 void print_list(Item*head){ //prints list
   if(head->next == NULL){ //head is the dummy node, so next is first in list
-    printf("ROOM HAS NO ITEMS"); //room is empty if next thing is null
+    printf("ROOM HAS NO ITEMS\n"); //room is empty if next thing is null
     return;
   }
   struct Item*current = head->next;
@@ -34,13 +34,13 @@ Item*item(char* name1, char* description1, struct Item* input){ //creates new it
   return temp;
 }
 
-Item* item_take(char*name,Item *head){ //take an item from the room
+Item* item_take(char*name, Item *head){ //take an item from the room
     Item* result = NULL; //pointer to the item we're taking
     Item* previous = NULL; //previous item in the list
     previous = head; 
     Item* curr = head->next; // skip the dummy node
     while(curr != NULL){ //traversing item list
-      if(strcmp(name, curr->name) == 0){ //item found
+      if(strncmp(curr->name, name, strlen(curr->name)) == 0){ //item found
         result = curr; //result updated
         previous->next = previous->next->next; //removes item from list
         result->next = NULL; //removes item from the list
