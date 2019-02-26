@@ -9,6 +9,7 @@
 struct user{
  struct Item* bag;
  chamber* stage;
+ int task; 
 };
 
 typedef struct user user;
@@ -18,6 +19,7 @@ typedef struct user user;
 	struct user* mario = (struct user*)malloc(sizeof(struct user)); //allocates memory for the user
 	mario->bag = bag; //sets the bag
 	mario->stage = begin; //sets the room the user starts at
+	mario->task=0;
 	return mario;
 }
 
@@ -94,7 +96,7 @@ void play_game(user* ptr){ //USER API
 
 	bool end = false; //keeps the game going until player wins or quits
 
-	while(!end){
+	while(!end && ptr->task!=1){ // not quit or not complete game
 		printf("What do you do? Type \"help\" for a list of commands\n");
 		fgets(input1, 20, stdin); //stores input in input1
 		
@@ -144,10 +146,13 @@ void play_game(user* ptr){ //USER API
 			print_list(ptr->bag); //prints out bag
 			printf("\nWHAT YOU WANT TO USE: ");
 			fgets(input2, 20, stdin); //stores input in input2
-			if(strncmp(ptr->stage->reqItem, item_take(input2, ptr->bag)->name, strlen(ptr->stage->reqItem))==0){ //take item from bag
-				toggleBlocked(ptr->stage); //unblock next room
+			if(strncmp(ptr->stage->reqItem, input2, strlen(ptr->stage->reqItem))==0){ //take item from bag
+				item_take(input2,ptr->bag);
+				if(toggleBlocked(ptr->stage)){ //unblock next room
+				ptr->task=+1;
 				printf("The next room has been unblocked.\n");
 				continue;
+				}
 			}
 			else{
 				printf("You can't use that item here.\n");

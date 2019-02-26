@@ -63,25 +63,33 @@ void set_down(chamber* current,chamber* other){ //sets the room below the curren
 	current->down = other;
 }
 
-void toggleBlocked(chamber* current){ //changes the blocked status of the room
+bool toggleBlocked(chamber* current){ //changes the blocked status of the room
+	bool result=false;
 	if(current->north !=NULL && current->north->isBlocked == true){
   		current->north->isBlocked = false; //unblocks north room
+  		result=true;
    	}
   	else if(current->south !=NULL && current->south->isBlocked == true){
   		current->south->isBlocked = false; //unblocks south room
+  		result=true;
   	}
   	else if(current->east !=NULL && current->east->isBlocked == true){
   		current->east->isBlocked = false; //unblocks east room
+  		result=true;
   	}
   	else if(current->west !=NULL && current->west->isBlocked == true){
   		current->west->isBlocked = false; //unblocks west room
+  		result=true;
   	}
   	else if(current->up !=NULL && current->up->isBlocked == true){
   		current->up->isBlocked = false; //unblocks above room
+  		result=true;
   	}
  	else if(current->down !=NULL && current->down->isBlocked == true){
   		current->down->isBlocked = false; //unblocks lower room
-  	} 
+  		result=true;
+  	}
+  	return result; 
 }
 
 

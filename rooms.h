@@ -42,7 +42,7 @@ void set_up(chamber*current,chamber*other);
 
 void set_down(chamber*current,chamber*other);
 
-void toggleBlocked(chamber* current);
+bool toggleBlocked(chamber* current);
 
 void room_desc(chamber*current);
 
