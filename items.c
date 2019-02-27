@@ -3,11 +3,11 @@
 #include <string.h>
 
 
-char* item_name(Item* input){ //sets item name
+char* item_name(Item* input){ //gets item name
   return input->name;
 }
 
-char* item_description(Item* input){ //sets item description
+char* item_description(Item* input){ //gets item description
   return input->description;
 }
 
@@ -17,7 +17,7 @@ void print_list(Item*head){ //prints list
     return;
   }
   struct Item*current = head->next;
-  int i = 1;
+  int i = 1; //item number
   while(current != NULL){ //traversing the item list
     printf("*Item %i is: %s \n*Description: %s \n", i, current->name, current->description);
     ++i; //increment the item number
@@ -37,7 +37,7 @@ Item*item(char* name1, char* description1, struct Item* input){ //creates new it
 Item* item_take(char*name, Item *head){ //take an item from the room
     Item* result = NULL; //pointer to the item we're taking
     Item* previous = NULL; //previous item in the list
-    previous = head; 
+    previous = head; //head will become curr's previous node
     Item* curr = head->next; // skip the dummy node
     while(curr != NULL){ //traversing item list
       if(strncmp(curr->name, name, strlen(curr->name)) == 0){ //item found
