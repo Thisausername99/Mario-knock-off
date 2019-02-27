@@ -63,6 +63,15 @@ void set_down(chamber* current,chamber* other){ //sets the room below the curren
 	current->down = other;
 }
 
+void set_item(chamber* current,Item* new){ //sets the room below the current room
+	current->item = new;
+}
+
+
+void set_description(chamber* current,char* new){ //sets the room below the current room
+	current->desc = new;
+}
+
 bool toggleBlocked(chamber* current){ //changes the blocked status of the room
 	bool result=false;
 	if(current->north !=NULL && current->north->isBlocked == true){
@@ -97,18 +106,23 @@ void display_room(chamber* ptr){ //prints the description of the room
 	printf("%s", ptr->desc);
 }
 
+void printFlavor(char* item, chamber* ptr){ //prints the description of the room
+	if( strcmp(item, " FIRE FLOWER\n") == 0 && strcmp(ptr->reqItem, " FIRE FLOWER\n") == 0 ){
+		printf("You hold the FIRE FLOWER in front of the wooden door and the FLOWER shoots out a fireball.\nThe fireball crashes into the door, combusting it instantly.\n" );
+		set_description(ptr, "ROOM 1-2. The room's walls are smokey and dark. Metal sconces are chained to the walls and their flames lick up at crumbling ceiling.\nOne of the flames behaves differently from the others and doesn't burn you as you approach.\nOn further inspection, it isn't real fire but a FIRE FLOWER emitting a shining light. You see a way WEST and NORTH of you where a door used to be.\n");
+
+	}
+}
+
 
 
 chamber* load_rooms(){ //creates all the rooms and connects them
-	Item*item_12 = item("","", item("Fire Flower", "a Fire Flower", NULL)); //creates fire flower for room 1-2
-
-	Item*item_11 = item("","", item("Mushroom", "TO ENLARGE", NULL)); //creates mushroom for room 1-1
 
 	chamber* room_11 = new_room("ROOM 1-1. The room is dim with no lighting except light pouring from the outside of the front gate you've entered from. The stone brick walls surrounds you.\nYou see a rectangular opening EAST of you.\n",
-	NULL,item_11,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 1-1, the starting room
+	NULL,NULL,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 1-1, the starting room
 
-	chamber* room_12 = new_room("ROOM 1-2. The room's walls are smokey and dark. Metal sconces are chained to the walls and their flames lick up at crumbling ceiling.\nOne of the flames behaves differently from the others and doesn't burn you as you approach.\nOn further inspection, it isn't real fire but a Fire Flower emitting a shining light. An old wooden door NORTH of you blocks your way NORTH. It does not budge. You see a way WEST of you.\n",
-	"Fire Flower", item_12,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 1-2
+	chamber* room_12 = new_room("ROOM 1-2. The room's walls are smokey and dark. Metal sconces are chained to the walls and their flames lick up at crumbling ceiling.\nOne of the flames behaves differently from the others and doesn't burn you as you approach.\nOn further inspection, it isn't real fire but a FIRE FLOWER emitting a shining light. An old wooden door NORTH of you blocks your way NORTH. It does not budge. You see a way WEST of you.\n",
+	" FIRE FLOWER\n", NULL,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 1-2
 
 	chamber* room_13 = new_room("ROOM 1-3. The first thing you notice are stones and dust falling from the rooms ceiling.\nThe ceiling in this room is falling apart and would most likely give if you even touched it, but you are too short as you are.\nThe room's floor gives way to dirt instead of stone. You see a way SOUTH and WEST of you.\n",
 	"Mushroom", NULL,true,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 1-3
@@ -147,6 +161,12 @@ chamber* load_rooms(){ //creates all the rooms and connects them
 	set_east(room_22, room_23); //connects room 2-2 with 2-3
 
 	set_west(room_23, room_22); //connects room 2-3 with 2-2
+
+	Item* fireflower = item("","", item(" FIRE FLOWER\n", "a Fire Flower", NULL));
+
+	Item* mushroom = item(" MUSHROOM", "TO ENLARGE", NULL); //creates mushroom for room 1-1
+
+	set_item ( room_12, fireflower );
 
 	return room_11;
 }

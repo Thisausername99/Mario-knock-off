@@ -49,4 +49,7 @@ void room_desc(chamber*current);
 bool contain(char*search,Item*curr_room);
 
 chamber* load_room();
+
+void printFlavor(char* item, chamber* ptr);
+
 	

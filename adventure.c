@@ -91,21 +91,23 @@ void go(user* ptr, char* direction){  //changes the room user is in
 
 
 void play_game(user* ptr){ //USER API
-	char input1[20]; //initialize strings for input
-	char input2[20]; //initialize strings for input
 
-	bool end = false; //keeps the game going until player wins or quits
+		bool end = false; //keeps the game going until player wins or quits
 
-	while(!end && ptr->task!=1){ // not quit or not complete game
+	while(!end){ // not quit or not complete game
 		printf("What do you do? Type \"help\" for a list of commands\n");
-		fgets(input1, 20, stdin); //stores input in input1
+		char* input1 = (char*)malloc(sizeof(char*));        //initialize strings for input
+		scanf(" %s", input1); //stores input in input1
 		
-		if(strncmp("look", input1, 4) == 0){ //look at room
+		if( strcmp ("look", input1) == 0){ //look at room
 			look(ptr->stage);
 		}
 
-		else if(strncmp("go", input1, 2) == 0){ //go to another room
-			fgets(input2, 20, stdin); //stores input in input2
+		else if(   strcmp("go", input1) == 0){ //go to another room
+		char* input2 = (char*)malloc(sizeof(char*));        //initialize strings for input
+
+
+			scanf("%s", input2); //stores input in input2
 			if(can_access(input2, ptr)){ //if room is not blocked
 				go(ptr, input2); //go to the room
 				continue;
@@ -117,50 +119,47 @@ void play_game(user* ptr){ //USER API
 			}
 		}
 
-		else if(strncmp("take", input1, 4) == 0){ //take an item
-			printf("THE ITEMS AVAILABLE IN THIS ROOM\n");
+		else if( strcmp("take", input1) == 0){ //take an item
 
-			if(ptr->stage->item->next != NULL){ //item list not empty
-				print_list(ptr->stage->item); //prints list of items
-				printf("What you want to take: "); 
-				fgets(input2, 20, stdin); //stores input in input2
 
-				while(!contain(input2, ptr->stage->item) && !strncmp("x", input2, 1) == 0){ //rechoose if incorrect input given
-					printf("ITEM IS NOT EXIST!!!!\n"); 
-					print_list(ptr->stage->item); //prints list again
-					printf("Choose again or x to stop: ");
-					fgets(input2, 20, stdin); //stores input in input2
+			char* input2 = (char*)malloc(sizeof(char*));
+			fgets(input2, 20, stdin);
+			
+
+				if( ptr->stage->item == NULL || strcmp(input2, ptr->stage->item->next->name) != 0){
+					printf("I don't understand what you want to take!\n");
 				}
-				add_item(ptr->bag, item_take(input2, ptr->stage->item)); //takes item and adds it to the player's bag
-				printf("\nYOUR NEW INVENTORY\n");
-				print_list(ptr->bag); //prints out list of bag items
-				continue;
+				else{
+					add_item(ptr->bag, item_take(input2, ptr->stage->item)); //takes item and adds it to the player's bag
 				}
-			else{
-				printf("ROOM IS EMPTY\n");
-				continue;
-			}
+
+		
 		}
 
-		else if(strncmp("use", input1, 3) == 0){ //use an item from your bag
-			print_list(ptr->bag); //prints out bag
-			printf("\nWHAT YOU WANT TO USE: ");
-			fgets(input2, 20, stdin); //stores input in input2
-			if(strncmp(ptr->stage->reqItem, input2, strlen(ptr->stage->reqItem))==0){ //take item from bag
+		else if(strcmp("use", input1) == 0){ //use an item from your bag
+			
+			char* input2 = (char*)malloc(sizeof(char*));
+			fgets(input2, 20, stdin);
+
+
+
+
+
+			if(    strcmp(ptr->stage->reqItem, input2) == 0 ){ //take item from bag
 				item_take(input2,ptr->bag);
 				if(toggleBlocked(ptr->stage)){ //unblock next room
 				ptr->task=+1;
-				printf("The next room has been unblocked.\n");
-				continue;
+				printFlavor(input2, ptr->stage);
 				}
 			}
 			else{
 				printf("You can't use that item here.\n");
-				continue;
 			}
+			
 		}
 
-		else if(strncmp("drop", input1, 4) == 0){ //drop an item
+		else if(strcmp("drop", input1) == 0){ //drop an item
+			/*
 			print_list(ptr->bag); //prints out bag list
 			printf("what do you want to drop: ");
 			fgets(input2, 20, stdin); //stores input in input2
@@ -171,18 +170,20 @@ void play_game(user* ptr){ //USER API
 			printf("\nYOUR INVENTORY:\n");
 			print_list(ptr->bag); 
 			continue;
+			*/
 		}
 
-		else if(strncmp("help", input1, 4) == 0){
-			printf("Type \"go\" to go to another room.\nType \"look\" to look at your surroundings.\nType \"take\" to take an item in a room.\nType \"drop\" to drop something from your inventory.\nType \"use\" to use something in your inventory.\nType \"quit\" to quit the game. Your progress won't be saved.\n");
-			continue;
+		else if(strcmp("help", input1) == 0){
+			printf("Type \"go\" to go to another room.\nType \"look\" to look at your surroundings.\nType \"inventory\" to look inside your inventory.\nType \"take\" to take an item in a room.\nType \"drop\" to drop something from your inventory.\nType \"use\" to use something in your inventory.\nType \"quit\" to quit the game. Your progress won't be saved.\n");
 		}
-		else if(strncmp("quit", input1, 4) == 0){
+		else if(strcmp("inventory", input1) == 0){
+			print_list(ptr->bag); 
+		}
+		else if(strcmp("quit", input1) == 0){
 			end = true;
 		}
 		else{
 			printf("I don't know what you mean.\n\n");
-			continue;
 		}
 	}
 	
@@ -197,7 +198,7 @@ int main(){
 	chamber* start = load_rooms(); //creates the rooms
 	user* mario = initialize(bag, start); //creates the player character
 
-	printf("WORLD DESCRIPTION:\nAnother perfect day at the Mushroom Kingdom has been ruined yet again. Princess Toadstool has been kidnapped and taken away to a far off castle.\nNow it's your job to get her back. Your story starts as you travel to the looming castle and opening its metal doors. They shut loudly behind you.\n\n");
+	printf("\nAnother perfect day at the Mushroom Kingdom has been ruined yet again. Princess Toadstool has been kidnapped and taken away to a far off castle.\nNow it's your job to get her back. Your story starts as you travel to the looming castle and opening its metal doors. They shut loudly behind you.\n\n");
 
 	play_game(mario);
 	
