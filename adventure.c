@@ -16,12 +16,12 @@ struct user{
 typedef struct user user;
 
 
- user* initialize(struct Item*bag, chamber* begin){ //creates the player character
+user* initialize(struct Item*bag, chamber* begin){ //creates the player character
 	struct user* mario = (struct user*)malloc(sizeof(struct user)); //allocates memory for the user
 	mario->bag = bag; //sets the bag
 	mario->stage = begin; //sets the room the user starts at
-	mario->task=0;
-	mario->bag_size=1;
+	mario->task = 0; //sets amount of tasks complete
+	mario->bag_size = 1; //sets the bag size
 	return mario;
 }
 
@@ -33,41 +33,41 @@ void look(chamber*ptr){ //prints out the description of the room
 
 
 
-bool can_access(char*direction, user*ptr){ //checks if the direction is blocked or not
+bool can_access(char*direction, user*ptr){ //checks if the direction is blocked or not and moves to that room
 	
-	printf("%s\n", direction);
 
-	if(strcmp("NORTH", direction)==0 && ptr->stage->north !=NULL && ptr->stage->north->isBlocked == false){
-  		ptr->stage = ptr->stage->north; 
+	if(strcmp("NORTH", direction)==0 && ptr->stage->north !=NULL && ptr->stage->north->isBlocked == false){//checks if north room is blocked
+  		ptr->stage = ptr->stage->north; //moves north
   		printf("You moved NORTH\n\n"); 
-  		return true; //checks if north room is blocked
+  		return true; 
    	}
-  	else if(strcmp("SOUTH", direction)==0 && ptr->stage->south !=NULL && ptr->stage->south->isBlocked == false){
-  		ptr->stage = ptr->stage->south;
+  	else if(strcmp("SOUTH", direction)==0 && ptr->stage->south !=NULL && ptr->stage->south->isBlocked == false){//checks if south room is blocked
+  		ptr->stage = ptr->stage->south; //moves south
   		printf("You moved SOUTH\n\n");
-  		return true; //checks if south room is blocked
+  		return true; 
   	}
-  	else if(strcmp("EAST", direction)==0 && ptr->stage->east !=NULL && ptr->stage->east->isBlocked == false){
-  		ptr->stage = ptr->stage->east;
+  	else if(strcmp("EAST", direction)==0 && ptr->stage->east !=NULL && ptr->stage->east->isBlocked == false){//checks if east room is blocked
+  		ptr->stage = ptr->stage->east; //moves east
+
   		printf("You moved EAST\n\n");
-  		return true; //checks if east room is blocked
+  		return true;
   	}
-  	else if(strcmp("WEST", direction)==0 && ptr->stage->west !=NULL && ptr->stage->west->isBlocked == false){
-  		ptr->stage = ptr->stage->west;
+  	else if(strcmp("WEST", direction)==0 && ptr->stage->west !=NULL && ptr->stage->west->isBlocked == false){//checks if west room is blocked
+  		ptr->stage = ptr->stage->west;//moves west
   		printf("You moved WEST\n\n");
-  		return true; //checks if west room is blocked
+  		return true;
   	}
-  	else if(strcmp("UP", direction)==0 && ptr->stage->up !=NULL && ptr->stage->up->isBlocked == false){
-  		ptr->stage = ptr->stage->up;
+  	else if(strcmp("UP", direction)==0 && ptr->stage->up !=NULL && ptr->stage->up->isBlocked == false){//checks if above room is blocked
+  		ptr->stage = ptr->stage->up; //moves up
   		printf("You moved UP\n\n");
-  		return true; //checks if above room is blocked
+  		return true; 
   	}
- 	else if(strcmp("DOWN", direction)==0 && ptr->stage->down !=NULL && ptr->stage->down->isBlocked == false){
-  		ptr->stage = ptr->stage->down;
+ 	else if(strcmp("DOWN", direction)==0 && ptr->stage->down !=NULL && ptr->stage->down->isBlocked == false){//checks if lower room is blocked
+  		ptr->stage = ptr->stage->down; //moves down
   		printf("You moved DOWN\n\n");
-  		return true; //checks if lower room is blocked
+  		return true; 
   	} 
-  	printf("YOU CAN'T GO THAT WEI\n");
+  	printf("YOU CAN'T GO THAT WAY\n");
   	return false;
 }
 
@@ -85,11 +85,11 @@ void play_game(user* ptr){ //USER API
 		scanf(" %s", input1); //stores input in input1
 
 		
-		if( strcmp ("look", input1) == 0){ //look at room
+		if(strcmp("look", input1) == 0){ //look at room
 			look(ptr->stage);
 		}
 
-		else if(   strcmp("go", input1) == 0){ //go to another room
+		else if(strcmp("go", input1) == 0){ //go to another room
 			char* input2 = (char*)malloc(sizeof(char*));        //initialize strings for input
 			scanf("%s", input2);//stores input in input2
 			can_access(input2, ptr); //if room is not blocked		
@@ -153,7 +153,7 @@ void play_game(user* ptr){ //USER API
 		}
 
 		else if(strcmp("help", input1) == 0){
-			printf("Type \"go\" to go to another room.\nType \"look\" to look at your surroundings.\nType \"inventory\" to look inside your inventory.\nType \"take\" to take an item in a room.\nType \"drop\" to drop something from your inventory.\nType \"use\" to use something in your inventory.\nType \"quit\" to quit the game. Your progress won't be saved.\n");
+			printf("Type \"go DIRECTION\" to go to another room.\nType \"look\" to look at your surroundings.\nType \"inventory\" to look inside your inventory.\nType \"take\" to take an item in a room.\nType \"drop\" to drop something from your inventory.\nType \"use\" to use something in your inventory.\nType \"quit\" to quit the game. Your progress won't be saved.\n");
 		}
 		else if(strcmp("inventory", input1) == 0){
 			print_list(ptr->bag); 
