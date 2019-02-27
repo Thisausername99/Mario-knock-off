@@ -18,8 +18,8 @@ struct Room{
 
 typedef struct Room chamber;
 
-chamber * room(char* desc, char*tool, Item* items, chamber *north, chamber *south,
-	chamber *east, chamber *west, chamber *up, chamber *down);
+chamber * new_room(char* desc, char* tool, Item *item_list, bool blocked, 
+chamber *north, chamber *south,  chamber *east, chamber *west, chamber *up, chamber *down);
 
   
 bool state_conquered(char*item,chamber* current);
@@ -50,6 +50,6 @@ bool contain(char*search,Item*curr_room);
 
 chamber* load_room();
 
-void printFlavor(char* item, chamber* ptr);
+void useItem(char* item, chamber* ptr);
 
 	

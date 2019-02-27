@@ -36,32 +36,33 @@ void look(chamber*ptr){ //prints out the description of the room
 bool can_access(char*direction, user*ptr){ //checks if the direction is blocked or not
 	
 	printf("%s\n", direction);
-	if(strncmp(" NORTH", direction, 5)==0 && ptr->stage->north !=NULL && ptr->stage->north->isBlocked == false){
+
+	if(strcmp("NORTH", direction)==0 && ptr->stage->north !=NULL && ptr->stage->north->isBlocked == false){
   		ptr->stage = ptr->stage->north; 
   		printf("You moved NORTH\n\n"); 
   		return true; //checks if north room is blocked
    	}
-  	else if(strncmp("SOUTH", direction, 5)==0 && ptr->stage->south !=NULL && ptr->stage->south->isBlocked == false){
+  	else if(strcmp("SOUTH", direction)==0 && ptr->stage->south !=NULL && ptr->stage->south->isBlocked == false){
   		ptr->stage = ptr->stage->south;
   		printf("You moved SOUTH\n\n");
   		return true; //checks if south room is blocked
   	}
-  	else if(strncmp("EAST", direction, 4)==0 && ptr->stage->east !=NULL && ptr->stage->east->isBlocked == false){
+  	else if(strcmp("EAST", direction)==0 && ptr->stage->east !=NULL && ptr->stage->east->isBlocked == false){
   		ptr->stage = ptr->stage->east;
   		printf("You moved EAST\n\n");
   		return true; //checks if east room is blocked
   	}
-  	else if(strncmp("WEST", direction, 4)==0 && ptr->stage->west !=NULL && ptr->stage->west->isBlocked == false){
+  	else if(strcmp("WEST", direction)==0 && ptr->stage->west !=NULL && ptr->stage->west->isBlocked == false){
   		ptr->stage = ptr->stage->west;
   		printf("You moved WEST\n\n");
   		return true; //checks if west room is blocked
   	}
-  	else if(strncmp("UP", direction, 2)==0 && ptr->stage->up !=NULL && ptr->stage->up->isBlocked == false){
+  	else if(strcmp("UP", direction)==0 && ptr->stage->up !=NULL && ptr->stage->up->isBlocked == false){
   		ptr->stage = ptr->stage->up;
   		printf("You moved UP\n\n");
   		return true; //checks if above room is blocked
   	}
- 	else if(strncmp("DOWN", direction, 4)==0 && ptr->stage->down !=NULL && ptr->stage->down->isBlocked == false){
+ 	else if(strcmp("DOWN", direction)==0 && ptr->stage->down !=NULL && ptr->stage->down->isBlocked == false){
   		ptr->stage = ptr->stage->down;
   		printf("You moved DOWN\n\n");
   		return true; //checks if lower room is blocked
@@ -71,12 +72,6 @@ bool can_access(char*direction, user*ptr){ //checks if the direction is blocked 
 }
 
 
-
-void alter_state(char* item){
-	if(strcmp(item,"Fire Flower")){
-		printf("THE FIERY FIRE BALLS SCATTERED AROUND THE ROOM WITH BLAMING TOUCH DECIMATED EVERY KOOPA NEAR BY. THEY ARE SCREAMING IN AGONIZE WHILE BEING ROASTED ALIVE\n");
-	}
-}
 
 
 
@@ -100,7 +95,7 @@ void play_game(user* ptr){ //USER API
 			can_access(input2, ptr); //if room is not blocked		
 
 		}
-			
+		
 
 		else if( strcmp("take", input1) == 0){ //take an item
 
@@ -109,7 +104,7 @@ void play_game(user* ptr){ //USER API
 			fgets(input2, 20, stdin);
 			
 
-				if( ptr->stage->item == NULL || strcmp(input2, ptr->stage->item->next->name) != 0){
+				if( ptr->stage->item == NULL || !contain(input2, ptr->stage->item) ){
 					printf("I don't understand what you want to take!\n");
 				}
 				else{
@@ -128,11 +123,11 @@ void play_game(user* ptr){ //USER API
 
 
 
-			if(    strcmp(ptr->stage->reqItem, input2) == 0 ){ //take item from bag
+			if(strcmp(ptr->stage->reqItem, input2) == 0 ){ //take item from bag
 				item_take(input2,ptr->bag);
 				if(toggleBlocked(ptr->stage)){ //unblock next room
 				ptr->task=+1;
-				printFlavor(input2, ptr->stage);
+				useItem(input2, ptr->stage);
 				}
 			}
 			else{
