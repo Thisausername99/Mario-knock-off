@@ -4,7 +4,20 @@
 #include "rooms.h"
 #include <stdbool.h>
 
-
+/**
+  * @desc declare a room and its components
+  * @param char*desc - description for the room
+  * @param char*tool - required Item to beat the challenge
+  * @param Item*item_list - pointer to Item LinkedList in the room
+  * @param bool blocked - determine if room is accessible
+  * @param chamber* north - pointer north room
+  * @param chamber* south - pointer south room
+  * @param chamber* east - pointer east room
+  * @param chamber* west - pointer west room
+  * @param chamber* up - pointer upper room
+  * @param chamber* down - pointer below room
+  * @return - pointer to the new room
+*/
 chamber * new_room(char* desc, char* tool, Item *item_list, bool blocked, chamber *north, chamber *south,
 	chamber *east, chamber *west, chamber *up, chamber *down){ //creates new room
 
@@ -25,6 +38,11 @@ chamber * new_room(char* desc, char* tool, Item *item_list, bool blocked, chambe
 	return new_room;
 }
 
+/**
+  * @desc check if a LinkedList contains this Item
+  * @param char* search - choosen Item
+  * @param Item* curr_room - LinkedList need to be searched
+*/
 bool contain(char*search, Item*curr_room){ //checks whether or not item is in room
 	curr_room = curr_room->next; //skips summy head
 	while(curr_room != NULL){
@@ -37,38 +55,42 @@ bool contain(char*search, Item*curr_room){ //checks whether or not item is in ro
 }
 
 
-
-
 void set_north(chamber* current,chamber* other){ //sets the room north of current room
 	current->north = other;
 }
+
 
 void set_south(chamber* current,chamber* other){ //sets the room south of current room
 	current->south = other;
 }
 
+
 void set_east(chamber* current,chamber* other){ //sets the room east of current room
 	current->east = other;
 }
+
 
 void set_west(chamber* current,chamber* other){ //sets the room west of current room
 	current->west = other;
 }
 
+
 void set_up(chamber* current,chamber* other){ //sets the room above the current room
 	current->up = other;
 }
 
+
 void set_down(chamber* current,chamber* other){ //sets the room below the current room
 	current->down = other;
 }
+
 
 void set_item(chamber* current,Item* new){ //sets the room below the current room
 	current->item = new;
 }
 
 
-void set_description(chamber* current,char* new){ //sets the room below the current room
+void set_description(chamber* current, char* new){ //sets the room below the current room
 	current->desc = new;
 }
 
@@ -77,6 +99,11 @@ void display_room(chamber* ptr){ //prints the description of the room
 	printf("%s", ptr->desc);
 }
 
+/**
+  * @desc add effect when using Item and alter the room state
+  * @param char* new - choosen Item
+  * @param chamber*ptr - ptr to room where Item is activated
+ */
 void useItem(char* new, chamber* ptr){ //prints the description of the room
 	printf("%s", new);
 	if( strcmp(new, " FIRE FLOWER\n") == 0 && strcmp(ptr->reqItem, " FIRE FLOWER\n") == 0 ){
@@ -84,6 +111,7 @@ void useItem(char* new, chamber* ptr){ //prints the description of the room
 		set_description(ptr, "ROOM 1-2. The room's walls are smokey and dark. Metal sconces are chained to the walls and their flames lick up at crumbling ceiling.\nOne of the sconces is unlit. You see a way WEST and NORTH of you where a door used to be.\n");
 		ptr->north->isBlocked = false;
 	}
+
 	else if( strcmp(new, " KOOPA SHELL\n") == 0 && strcmp(ptr->reqItem, " KOOPA SHELL\n") == 0 ){
 		printf("You kick the KOOPA SHELL into the suspicious pile of blocks. They break one by one and reveal a MUSHROOM that was hidden beneath.\n" );
 		set_description(ptr, "ROOM 2-3. Where there used to be a pile of blocks there is a MUSHROOM.\nThe room is a dead-end. You see only the way you came from WEST of you.\n");
@@ -96,19 +124,18 @@ void useItem(char* new, chamber* ptr){ //prints the description of the room
 		set_description(ptr, "ROOM 1-3. The ceiling in this room is busted open.\nHeat pours from it. You see a way SOUTH and WEST of you. You can just reach a way UP.\n");
 		ptr->up->isBlocked = false;
 	}
+
 	else if( strcmp(new, " AXE\n") == 0 && strcmp(ptr->reqItem, " AXE\n") == 0 ){
-		printf("You grab the AXE and swing it against the chains of the bridge. The bridge cracks violently and collapse into the lava.\nThe giant lizard tumbles into the lava with a roar that shakes the entire room.\n \"Oh, thank you Mario!\", you hear someone say. You turn around to find Princess Toadstool safe and sound. You decide to quickly leave the castle with her to return her to her kingdom.\n 	T H E   E N DN\"" );
+		printf("You grab the AXE and swing it against the chains of the bridge. The bridge cracks violently and collapse into the lava.\nThe giant lizard tumbles into the lava with a roar that shakes the entire room.\n \"Oh, thank you Mario!\", you hear someone say. You turn around to find Princess Toadstool safe and sound. You decide to quickly leave the castle with her to return her to her kingdom.\n 	T H E   E N D\" \n");
+
 	}
-
-
-
-
-
-
 }
 
 
-
+/**
+  * @desc initiate the map
+  * @return - pointer to the first room
+*/
 chamber* load_rooms(){ //creates all the rooms and connects them
 
 	chamber* room_11 = new_room("ROOM 1-1. The room is dim with no lighting except light pouring from the outside of the front gate you've entered from. The stone brick walls surrounds you.\nYou see a rectangular opening EAST of you.\n",
@@ -155,17 +182,17 @@ chamber* load_rooms(){ //creates all the rooms and connects them
 
 	set_west(room_23, room_22); //connects room 2-3 with 2-2
 
-	Item* fireflower = item("","", item(" FIRE FLOWER\n", "a Fiery Flower", NULL));
+	Item* fireflower = item("","", item(" FIRE FLOWER\n", "a Fiery Flower", NULL)); //creates fire flower item
 
-	Item* koopashell = item("","", item(" KOOPA SHELL\n", "a Koopa's Shell", NULL));
+	Item* koopashell = item("","", item(" KOOPA SHELL\n", "a Koopa's Shell", NULL)); //creates koopa shell  item
 
-	Item* axe = item("","", item(" AXE\n", "an axe that's on a bridge?", NULL));
+	Item* axe = item("","", item(" AXE\n", "an axe that's on a bridge?", NULL)); //creates axe item
 
-	set_item ( room_12, fireflower );
+	set_item ( room_12, fireflower ); //puts the fire flower in room 1-2
 
-	set_item ( room_21, koopashell );
+	set_item ( room_21, koopashell ); //puts the koopa shell in room 2-1
 
-	set_item ( room_24, axe );
+	set_item ( room_24, axe ); //puts the axe in room 2-4
 
 
 
