@@ -100,55 +100,51 @@ void play_game(user* ptr){ //USER API
 
 		else if( strcmp("take", input1) == 0){ //take an item
 
-
-			//char* input2 = (char*)malloc(sizeof(char*));
 			fgets(input2, 20, stdin);
-			
-
 				if( ptr->stage->item == NULL || !contain(input2, ptr->stage->item) ){
 					printf("I don't understand what you want to take!\n");
 				}
 				else{
 					add_item(ptr->bag, item_take(input2, ptr->stage->item)); //takes item and adds it to the player's bag
-				print_list(ptr->bag); 
+					print_list(ptr->bag); 
 				}
 
 		
 		}
 
 		else if(strcmp("use", input1) == 0){ //use an item from your bag
-			
-			//char* input2 = (char*)malloc(sizeof(char*));
 			fgets(input2, 20, stdin);
+			if(contain(input2,ptr->bag)){
 
-			if(strcmp(ptr->stage->reqItem, input2) == 0 ){ //take item from bag
-				item_take(input2,ptr->bag);
-				ptr->task += 1;
-				useItem(input2, ptr->stage);
-			}
+				if(strcmp(ptr->stage->reqItem, input2) == 0){ //take item from bag
+					free(item_take(input2,ptr->bag));
+					ptr->task += 1;
+					useItem(input2, ptr->stage);
+					//free(use_ptr);
+					}
+				}
 			else{
-				printf("You can't use that item here.\n");
+
+				printf("You can't use that item here OR It is not exist\n");
 			}
 			
 		}
 
 		else if(strcmp("drop", input1) == 0){ //drop an item
 			
-			
-			//char* input2 = (char*)malloc(sizeof(char*));
 			fgets(input2, 20, stdin); //stores input in input2
 
 			if(contain(input2,ptr->bag)){
-				//Item*drop_ptr = item_take(input2, ptr->bag); //take item out of bag
-				//printf("You dropped the %s\n", drop_ptr->name);
+				
 				add_item(ptr->stage->item, item_take(input2, ptr->bag)); //adds item to the room's item list
 			}
-		
+			else
+				printf("Item not exist\n");
 			
 		}
 
 		else if(strcmp("help", input1) == 0){
-			printf("Type \"go DIRECTION\" to go to another room.\nType \"look\" to look at your surroundings.\nType \"inventory\" to look inside your inventory.\nType \"take\" to take an item in a room.\nType \"drop\" to drop something from your inventory.\nType \"use\" to use something in your inventory.\nType \"quit\" to quit the game. Your progress won't be saved.\n");
+			printf("Type \"go DIRECTION\" to go to another room.\nType \"look\" to look at your surroundings.\nType \"inventory\" to look inside your inventory.\nType \"take Item name\" to take an item in a room.\nType \"drop Item name\" to drop something from your inventory.\nType \"use Item name\" to use something in your inventory.\nType \"quit\" to quit the game. Your progress won't be saved.\n");
 		}
 		else if(strcmp("inventory", input1) == 0){
 			print_list(ptr->bag); 
@@ -169,7 +165,7 @@ void play_game(user* ptr){ //USER API
 int main(){
 	//prototypes
 	chamber* load_rooms(); 
-	Item*bag=item("","", item("test","testing",NULL)); //testing items
+	Item*bag=item("","",NULL); //testing items
 	//initializes user with a NULL inventory and load_rooms() returning the starting room
 	chamber* start = load_rooms(); //creates the rooms
 	user* mario = initialize(bag, start); //creates the player character
