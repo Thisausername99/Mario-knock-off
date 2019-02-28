@@ -72,35 +72,6 @@ void set_description(chamber* current,char* new){ //sets the room below the curr
 	current->desc = new;
 }
 
-bool toggleBlocked(chamber* current){ //changes the blocked status of the room
-	bool result=false;
-	if(current->north !=NULL && current->north->isBlocked == true){
-  		current->north->isBlocked = false; //unblocks north room
-  		result=true;
-   	}
-  	else if(current->south !=NULL && current->south->isBlocked == true){
-  		current->south->isBlocked = false; //unblocks south room
-  		result=true;
-  	}
-  	else if(current->east !=NULL && current->east->isBlocked == true){
-  		current->east->isBlocked = false; //unblocks east room
-  		result=true;
-  	}
-  	else if(current->west !=NULL && current->west->isBlocked == true){
-  		current->west->isBlocked = false; //unblocks west room
-  		result=true;
-  	}
-  	else if(current->up !=NULL && current->up->isBlocked == true){
-  		current->up->isBlocked = false; //unblocks above room
-  		result=true;
-  	}
- 	else if(current->down !=NULL && current->down->isBlocked == true){
-  		current->down->isBlocked = false; //unblocks lower room
-  		result=true;
-  	}
-  	return result; 
-}
-
 
 void display_room(chamber* ptr){ //prints the description of the room
 	printf("%s", ptr->desc);
@@ -126,7 +97,7 @@ void useItem(char* new, chamber* ptr){ //prints the description of the room
 		ptr->up->isBlocked = false;
 	}
 	else if( strcmp(new, " AXE\n") == 0 && strcmp(ptr->reqItem, " AXE\n") == 0 ){
-		printf("You grab the AXE and swing it against the chains of the bridge. The bridge cracks violently and collapse into the lava.\nThe giant lizard tumbles into the lava with a roar that shakes the entire room.\n \"Oh, thank you Mario!\", you hear someone say. You turn around to find Princess Toadstool safe and sound. You decide to quickly leave the castle with her to return her to her kingdom.\n 	T H E   E N DN\" );
+		printf("You grab the AXE and swing it against the chains of the bridge. The bridge cracks violently and collapse into the lava.\nThe giant lizard tumbles into the lava with a roar that shakes the entire room.\n \"Oh, thank you Mario!\", you hear someone say. You turn around to find Princess Toadstool safe and sound. You decide to quickly leave the castle with her to return her to her kingdom.\n 	T H E   E N DN\"" );
 	}
 
 
