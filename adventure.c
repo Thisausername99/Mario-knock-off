@@ -123,10 +123,8 @@ void play_game(user* ptr){ //USER API
 
 			if(strcmp(ptr->stage->reqItem, input2) == 0 ){ //take item from bag
 				item_take(input2,ptr->bag);
-				if(toggleBlocked(ptr->stage)){ //unblock next room
 				ptr->task += 1;
 				useItem(input2, ptr->stage);
-				}
 			}
 			else{
 				printf("You can't use that item here.\n");

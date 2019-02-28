@@ -107,25 +107,26 @@ void display_room(chamber* ptr){ //prints the description of the room
 }
 
 void useItem(char* new, chamber* ptr){ //prints the description of the room
+	printf("%s", new);
 	if( strcmp(new, " FIRE FLOWER\n") == 0 && strcmp(ptr->reqItem, " FIRE FLOWER\n") == 0 ){
 		printf("You hold the FIRE FLOWER in front of the wooden door and the FLOWER shoots out a fireball.\nThe fireball crashes into the door, combusting it instantly.\n" );
 		set_description(ptr, "ROOM 1-2. The room's walls are smokey and dark. Metal sconces are chained to the walls and their flames lick up at crumbling ceiling.\nOne of the sconces is unlit. You see a way WEST and NORTH of you where a door used to be.\n");
 		ptr->north->isBlocked = false;
 	}
-	if( strcmp(new, " KOOPA SHELL\n") == 0 && strcmp(ptr->reqItem, " KOOPA SHELL\n") == 0 ){
+	else if( strcmp(new, " KOOPA SHELL\n") == 0 && strcmp(ptr->reqItem, " KOOPA SHELL\n") == 0 ){
 		printf("You kick the KOOPA SHELL into the suspicious pile of blocks. They break one by one and reveal a MUSHROOM that was hidden beneath.\n" );
-		set_description(ptr, "Where there used to be a pile of blocks there is a MUSHROOM.\n");
-		Item* mush = item("","", item(" KOOPA SHELL\n", "a Koopa's shell", NULL));
+		set_description(ptr, "ROOM 2-3. Where there used to be a pile of blocks there is a MUSHROOM.\nThe room is a dead-end. You see only the way you came from WEST of you.\n");
+		Item* mush = item("","", item(" MUSHROOM\n", "a red fungi", NULL));
 		set_item ( ptr, mush );
 
 	}
-	if( strcmp(new, " MUSHROOM\n") == 0 && strcmp(ptr->reqItem, " MUSHROOM\n") == 0 ){
-		printf("You hold the FIRE FLOWER in front of the wooden door and the FLOWER shoots out a fireball.\nThe fireball crashes into the door, combusting it instantly.\n" );
-		set_description(ptr, "ROOM 1-2. The room's walls are smokey and dark. Metal sconces are chained to the walls and their flames lick up at crumbling ceiling.\nOne of the flames behaves differently from the others and doesn't burn you as you approach.\nOn further inspection, it isn't real fire but a FIRE FLOWER emitting a shining light. You see a way WEST and NORTH of you where a door used to be.\n");
+	else if( strcmp(new, " MUSHROOM\n") == 0 && strcmp(ptr->reqItem, " MUSHROOM\n") == 0 ){
+		printf("You eat the MUSHROOM and grow bigger. Your bigger form lets you jump into the ceiling and break the ceiling open.\n" );
+		set_description(ptr, "ROOM 1-3. The ceiling in this room is busted open.\nHeat pours from it. You see a way SOUTH and WEST of you. You can just reach a way UP.\n");
+		ptr->up->isBlocked = false;
 	}
-	if( strcmp(new, " AXE\n") == 0 && strcmp(ptr->reqItem, " AXE\n") == 0 ){
-		printf("You hold the FIRE FLOWER in front of the wooden door and the FLOWER shoots out a fireball.\nThe fireball crashes into the door, combusting it instantly.\n" );
-		set_description(ptr, "ROOM 1-2. The room's walls are smokey and dark. Metal sconces are chained to the walls and their flames lick up at crumbling ceiling.\nOne of the flames behaves differently from the others and doesn't burn you as you approach.\nOn further inspection, it isn't real fire but a FIRE FLOWER emitting a shining light. You see a way WEST and NORTH of you where a door used to be.\n");
+	else if( strcmp(new, " AXE\n") == 0 && strcmp(ptr->reqItem, " AXE\n") == 0 ){
+		printf("You grab the AXE and swing it against the chains of the bridge. The bridge cracks violently and collapse into the lava.\nThe giant lizard tumbles into the lava with a roar that shakes the entire room.\n \"Oh, thank you Mario!\", you hear someone say. You turn around to find Princess Toadstool safe and sound. You decide to quickly leave the castle with her to return her to her kingdom.\n 	T H E   E N DN\" );
 	}
 
 
@@ -146,7 +147,7 @@ chamber* load_rooms(){ //creates all the rooms and connects them
 	" FIRE FLOWER\n", NULL,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 1-2
 
 	chamber* room_13 = new_room("ROOM 1-3. The first thing you notice are stones and dust falling from the rooms ceiling.\nThe ceiling in this room is falling apart and would most likely give if you even touched it, but you are too short as you are.\nThe room's floor gives way to dirt instead of stone. You see a way SOUTH and WEST of you.\n",
-	"Mushroom", NULL,true,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 1-3
+	" MUSHROOM\n", NULL,true,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 1-3
 
 	chamber* room_14 = new_room("ROOM 1-4. Intricate stone stairs spiral up into the ceiling. Small specks of dust and dirt float down from the floor above.\nYou can climb the stairs UP and you see a way EAST of you.\n",
 	NULL, NULL,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 1-4
@@ -157,10 +158,10 @@ chamber* load_rooms(){ //creates all the rooms and connects them
 	chamber* room_22 = new_room("ROOM 2-2. The room is empty except for crumbled and ripped up paper all over the floor. No writing desk is in the room.\nYou pick up a paper and inspect it, but it is indecipherable plans.\nThe poorly drawn plumber and dinosaur remind you of someone. You see a way NORTH and EAST.\n",
 	NULL, NULL,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 2-2
 
-	chamber* room_23 = new_room("ROOM 2-3. Blocks cover the ground and there is suspicious mound of them in the corner of the room.\nThe blocks cannot be lifted and there's no way to break them with a Mushroom since you can't get under them.\nThe room is a dead-end. You see only the way you came from WEST of you.\n",
+	chamber* room_23 = new_room("ROOM 2-3. Blocks cover the ground and there is suspicious mound of them in the corner of the room.\nThe blocks cannot be lifted and there's no way to break them on your own. \nThe room is a dead-end. You see only the way you came from WEST of you.\n",
 	" KOOPA SHELL\n", NULL,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 2-3
 
-	chamber* room_24 = new_room("ROOM 2-4. The room is huge and completely black. You're standing on the edge of a bridge that is chained above a lake of lava.\nA huge green lizard with a spiked shell looms on the other side of the bridge.\nFire pours from his unhinged mouth. Behind him is an axe as well as where the bridge is precariously chained.\n",
+	chamber* room_24 = new_room("ROOM 2-4. The room is huge and completely black. You're standing on the edge of a bridge that is chained above a lake of lava.\nA huge green lizard with a spiked shell looms on the other side of the bridge.\nFire pours from his unhinged mouth. Behind him is an AXE as well as where the bridge is precariously chained.\n",
 	" AXE\n", NULL,true,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 2-4
  
 	set_east(room_11, room_12); //connects room 1-1 and 1-2
@@ -173,7 +174,7 @@ chamber* load_rooms(){ //creates all the rooms and connects them
 	set_west(room_13, room_14); //connects room 1-3 with 1-4
 
 	set_up(room_14, room_21); //connects room 1-4 with 2-1
-	set_west(room_14, room_13); //connects room 1-4 with 1-3
+	set_east(room_14, room_13); //connects room 1-4 with 1-3
  
 	set_south(room_21, room_22); //connects room 2-1 with 2-2
 	set_down(room_21, room_14); //connects room 2-1 with 1-4
