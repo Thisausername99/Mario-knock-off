@@ -13,13 +13,13 @@ char* item_description(Item* input){ //gets item description
 
 void print_list(Item*head){ //prints list
   if(head->next == NULL){ //head is the dummy node, so next is first in list
-    printf("ROOM HAS NO ITEMS\n"); //room is empty if next thing is null
+    printf("NO ITEMS\n"); //room is empty if next thing is null
     return;
   }
-  struct Item*current = head->next;
+  struct Item*current = head->next; //pointer to first item in list (skips dummy head)
   int i = 1; //item number
   while(current != NULL){ //traversing the item list
-    printf("*Item %i is: %s \n*Description: %s \n", i, current->name, current->description);
+    printf("*Item %i is:%s*Description: %s \n", i, current->name, current->description);
     ++i; //increment the item number
     current = current->next;
   }
