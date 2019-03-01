@@ -126,7 +126,7 @@ void useItem(char* new, chamber* ptr){ //uses an item from the player's inventor
 	}
 
 	else if( strcmp(new, " AXE\n") == 0 && strcmp(ptr->reqItem, " AXE\n") == 0 ){
-		printf("You grab the AXE and swing it against the chains of the bridge. The bridge cracks violently and collapse into the lava.\nThe giant lizard tumbles into the lava with a roar that shakes the entire room.\n \"Oh, thank you Mario!\", you hear someone say. You turn around to find Princess Toadstool safe and sound. You decide to quickly leave the castle with her to return her to her kingdom.\n 	T H E   E N D\" \n");
+		printf("You grab the AXE and swing it against the chains of the bridge. The bridge cracks violently and collapse into the lava.\nThe giant lizard tumbles into the lava with a roar that shakes the entire room.\n \"Oh, thank you Mario!\", you hear someone say. You turn around to find Princess Toadstool safe and sound. You decide to quickly leave the castle with her to return her to her kingdom.\n 	\"T H E   E N D\" \n");
 
 	}
 }
