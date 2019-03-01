@@ -21,12 +21,6 @@ typedef struct Room chamber;
 chamber * new_room(char* desc, char* tool, Item *item_list, bool blocked, 
 chamber *north, chamber *south,  chamber *east, chamber *west, chamber *up, chamber *down);
 
-  
-bool state_conquered(char*item,chamber* current);
-
-void setRoomItem(chamber*room, struct Item* item);
-
-bool takeRoomItem(chamber*room, struct Item* item);
 
 void display_room(chamber*room);
 
@@ -42,14 +36,8 @@ void set_up(chamber*current,chamber*other);
 
 void set_down(chamber*current,chamber*other);
 
-bool toggleBlocked(chamber* current);
-
-void room_desc(chamber*current);
-
 bool contain(char*search,Item*curr_room);
 
 chamber* load_room();
 
 void useItem(char* item, chamber* ptr);
-
-	
