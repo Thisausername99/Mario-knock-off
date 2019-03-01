@@ -85,12 +85,12 @@ void set_down(chamber* current,chamber* other){ //sets the room below the curren
 }
 
 
-void set_item(chamber* current,Item* new){ //sets the room below the current room
+void set_item(chamber* current,Item* new){ //sets the room's item list to a new one
 	current->item = new;
 }
 
 
-void set_description(chamber* current, char* new){ //sets the room below the current room
+void set_description(chamber* current, char* new){ //sets the room's description to a new one
 	current->desc = new;
 }
 
@@ -104,7 +104,7 @@ void display_room(chamber* ptr){ //prints the description of the room
   * @param char* new - choosen Item
   * @param chamber*ptr - ptr to room where Item is activated
  */
-void useItem(char* new, chamber* ptr){ //prints the description of the room
+void useItem(char* new, chamber* ptr){ //uses an item from the player's inventory and changes the room
 	printf("%s", new);
 	if( strcmp(new, " FIRE FLOWER\n") == 0 && strcmp(ptr->reqItem, " FIRE FLOWER\n") == 0 ){
 		printf("You hold the FIRE FLOWER in front of the wooden door and the FLOWER shoots out a fireball.\nThe fireball crashes into the door, combusting it instantly.\n" );
