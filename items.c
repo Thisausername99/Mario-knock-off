@@ -56,7 +56,7 @@ Item*item(char* name, char* description, Item* input){ //creates new item
   * @param Item*head - head of the LinkedList
   * @return pointer to Item or NULL
 */
-Item* item_take(char*name, Item *head){ //take an item from the room
+Item* item_take(char*name, Item *head){ //take an item from the room or bag
     Item* result = NULL; //pointer to the item we're taking
     Item* previous = NULL; //previous item in the list
     previous = head; //head will become curr's previous node
@@ -83,7 +83,7 @@ Item* item_take(char*name, Item *head){ //take an item from the room
   * @param Item * bag - pointer to head of LinkedList item will be added into 
   * @param Item * new - pointer to new item
 */
-void add_item(Item*bag, Item*new){ //adds item to player's bag
+void add_item(Item*bag, Item*new){ //adds item to player's bag or room
   if(bag->next == NULL){ //nothing else in list
     bag->next = new; //adds new item to the player's bag
     return;
