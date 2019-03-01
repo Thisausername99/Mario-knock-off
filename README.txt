@@ -1,8 +1,20 @@
 # project-2
-Text Adventure
+Text Adventure by Huy Hoang, , and Nhan Le
 
 https://youtu.be/Wf6B7o8bhrY
 
+-game has exactly 8 rooms
+-rooms can contain items
+-an avatar with an inventory is made
+-players can "look" at the room
+-avatar can move rooms by using "go DIRECTION" where DIRECTION is NORTH, SOUTH, EAST, WEST, UP, DOWN
+-avatar can pick up items with "take ITEM" where ITEM is MUSHROOM, FIRE FLOWER, KOOPA SHELL, AXE
+-using items change the state of the room (unblocking them and changing their descriptions)
+-avatar can drop items in their inventory and put them in the room
+-the winning state is getting the AXE in room 2-4 and using it be defeat Bowser
+
+
+An important part of our code was when 
 
 
 Function descriptions in adventure.c:
