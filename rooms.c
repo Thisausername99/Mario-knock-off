@@ -139,7 +139,7 @@ void useItem(char* new, chamber* ptr){ //uses an item from the player's inventor
 chamber* load_rooms(){ //creates all the rooms and connects them
 
 	chamber* room_11 = new_room("ROOM 1-1. The room is dim with no lighting except light pouring from the outside of the front gate you've entered from. The stone brick walls surrounds you.\nYou see a rectangular opening EAST of you.\n",
-	NULL,NULL,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 1-1, the starting room
+	"",NULL,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 1-1, the starting room
 
 	chamber* room_12 = new_room("ROOM 1-2. The room's walls are smokey and dark. Metal sconces are chained to the walls and their flames lick up at crumbling ceiling.\nOne of the flames behaves differently from the others and doesn't burn you as you approach.\nOn further inspection, it isn't real fire but a FIRE FLOWER emitting a shining light. An old wooden door NORTH of you blocks your way NORTH. It does not budge. You see a way WEST of you.\n",
 	" FIRE FLOWER\n", NULL,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 1-2
@@ -148,13 +148,13 @@ chamber* load_rooms(){ //creates all the rooms and connects them
 	" MUSHROOM\n", NULL,true,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 1-3
 
 	chamber* room_14 = new_room("ROOM 1-4. Intricate stone stairs spiral up into the ceiling. Small specks of dust and dirt float down from the floor above.\nYou can climb the stairs UP and you see a way EAST of you.\n",
-	NULL, NULL,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 1-4
+	"", NULL,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 1-4
 
 	chamber* room_21 = new_room("ROOM 2-1. The floor is littered with discarded KOOPA SHELLs and their putrid smell makes your eyes water.\nSome of the KOOPA SHELLs still have skelettons inside them while other skeletons are chained to the wall.\nYou can't help but feel bad. There are stairs that lead DOWN and a way to continue SOUTH of you.\n",
-	NULL, NULL,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 2-1
+	"", NULL,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 2-1
 
 	chamber* room_22 = new_room("ROOM 2-2. The room is empty except for crumbled and ripped up paper all over the floor. No writing desk is in the room.\nYou pick up a paper and inspect it, but it is indecipherable plans.\nThe poorly drawn plumber and dinosaur remind you of someone. You see a way NORTH and EAST.\n",
-	NULL, NULL,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 2-2
+	"", NULL,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 2-2
 
 	chamber* room_23 = new_room("ROOM 2-3. Blocks cover the ground and there is suspicious mound of them in the corner of the room.\nThe blocks cannot be lifted and there's no way to break them on your own. \nThe room is a dead-end. You see only the way you came from WEST of you.\n",
 	" KOOPA SHELL\n", NULL,false,NULL,NULL,NULL,NULL,NULL,NULL); //creates room 2-3
