@@ -1,5 +1,5 @@
 # project-2
-Text Adventure by Huy Hoang, , and Nhan Le
+Text Adventure by Huy Hoang, Veronica Gusev, and Nhan Le
 
 https://youtu.be/Wf6B7o8bhrY
 
@@ -14,7 +14,24 @@ https://youtu.be/Wf6B7o8bhrY
 -the winning state is getting the AXE in room 2-4 and using it be defeat Bowser
 
 
-An important part of our code was when 
+The important details:
+  play_game is the main driver in our code. It employs a while loop that takes in user input
+  and doles out what to do with conditionals. If the input is take, then run the necessary
+  functions for taking an item to occur. The loop ends when the game is over by user choice 
+  (end) by quitting or is over by beating Bowser (completing the 4 ingame tasks).
+  The other important part of play_game is that its initialized with a pointer to the user structure
+  which houses a lot of important information such as where the user is located, his/her bag,
+  along with other relvant information. With this pointer, changes to the current room, bag, etc 
+  are able to be made. Such changes include putting an item into a room and removing it from the player's
+  bag (dropping), or vice versa (taking). When a player uses an item, it's removed permanently from the game.
+  A variety of effects can occur when a player uses an item that range from changing the room's description,
+  to opening up a new pathway, to putting a new item into the room. 
+  Less important details include the room functions and structure which allow for description changing.
+  The rooms are initalized in the beginning with their items inside as well as what items are required
+  for their challenges. 
+  The items are also implemented as a linked list that would point to another. This is used in the
+  user's bag and in the rooms. 
+  If you get stuck, there's also a help option!
 
 
 Function descriptions in adventure.c:
